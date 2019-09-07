@@ -1,3 +1,12 @@
-com\SeniorDesign\SpotCheckServer\Controller\ParkingLotController.class
+com\SeniorDesign\SpotCheckServer\Models\ParkingLots.class
+com\SeniorDesign\SpotCheckServer\Repository\Mappers\ParkingLotMapper.class
+com\SeniorDesign\SpotCheckServer\Quartz\Scheduler.class
+com\SeniorDesign\SpotCheckServer\Repository\JdbcRepository\JdbcParkingLotRepository.class
 com\SeniorDesign\SpotCheckServer\Application.class
+com\SeniorDesign\SpotCheckServer\Models\ParkingLot.class
 com\SeniorDesign\SpotCheckServer\ServletInitializer.class
+com\SeniorDesign\SpotCheckServer\Quartz\Jobs\UpdateParkingLots.class
+com\SeniorDesign\SpotCheckServer\Controller\ParkingLotController.class
+com\SeniorDesign\SpotCheckServer\Config\SpotCheckJdbcConfig.class
+com\SeniorDesign\SpotCheckServer\Repository\ParkingLotRepository.class
+com\SeniorDesign\SpotCheckServer\Service\ParkingLotService.class
