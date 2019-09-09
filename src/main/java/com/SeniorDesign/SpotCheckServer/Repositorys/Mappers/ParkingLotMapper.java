@@ -20,8 +20,8 @@ public class ParkingLotMapper implements RowMapper<ParkingLot>
         parkingLot.setState(resultSet.getString("STATE"));
         parkingLot.setCity(resultSet.getString("CITY"));
         parkingLot.setZipCode(resultSet.getInt("ZIP_CODE"));
-        parkingLot.setLat(resultSet.getLong("LAT"));
-        parkingLot.setLon(resultSet.getLong("LONG"));
+        parkingLot.setLat(resultSet.getBigDecimal("LAT"));
+        parkingLot.setLon(resultSet.getBigDecimal("LONG"));
 
         return parkingLot;
 

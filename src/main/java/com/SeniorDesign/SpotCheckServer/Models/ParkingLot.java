@@ -2,6 +2,8 @@ package com.SeniorDesign.SpotCheckServer.Models;
 
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class ParkingLot {
     Long lotId;
@@ -10,8 +12,8 @@ public class ParkingLot {
     int zipCode;
     String city;
     String state;
-    long lat;
-    long lon;
+    BigDecimal lat;
+    BigDecimal lon;
 
 
 
@@ -63,19 +65,19 @@ public class ParkingLot {
         this.state = state;
     }
 
-    public long getLat() {
+    public BigDecimal getLat() {
         return lat;
     }
 
-    public void setLat(long lat) {
+    public void setLat(BigDecimal lat) {
         this.lat = lat;
     }
 
-    public long getLon() {
+    public BigDecimal getLon() {
         return lon;
     }
 
-    public void setLon(long lon) {
+    public void setLon(BigDecimal lon) {
         this.lon = lon;
     }
 }
