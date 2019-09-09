@@ -1,9 +1,8 @@
-package com.SeniorDesign.SpotCheckServer.Repository.JdbcRepository;
+package com.SeniorDesign.SpotCheckServer.Repositorys.JdbcRepository;
 
-import com.SeniorDesign.SpotCheckServer.Config.SpotCheckJdbcConfig;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
-import com.SeniorDesign.SpotCheckServer.Repository.Mappers.ParkingLotMapper;
-import com.SeniorDesign.SpotCheckServer.Repository.ParkingLotRepository;
+import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.ParkingLotMapper;
+import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;

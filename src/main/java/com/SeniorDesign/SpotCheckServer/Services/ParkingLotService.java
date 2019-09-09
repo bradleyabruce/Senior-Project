@@ -1,7 +1,7 @@
-package com.SeniorDesign.SpotCheckServer.Service;
+package com.SeniorDesign.SpotCheckServer.Services;
 
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
-import com.SeniorDesign.SpotCheckServer.Repository.ParkingLotRepository;
+import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,12 @@ public class ParkingLotService
 
     public List<ParkingLot> getAllParkingLots()
     {
+
         return parkingLotRepository.getParkingLots();
+    }
+
+    public String updateOpenParking()
+    {
+        return "This was a quartz test";
     }
 }

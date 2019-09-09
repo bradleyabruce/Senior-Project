@@ -1,7 +1,6 @@
-package com.SeniorDesign.SpotCheckServer.Repository;
+package com.SeniorDesign.SpotCheckServer.Repositorys;
 
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
