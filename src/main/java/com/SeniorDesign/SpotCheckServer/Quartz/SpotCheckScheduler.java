@@ -2,23 +2,46 @@ package com.SeniorDesign.SpotCheckServer.Quartz;
 
 import com.SeniorDesign.SpotCheckServer.Quartz.Jobs.UpdateParkingLotsJob;
 import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
-public class SpotCheckScheduler
-{
-    @Bean
-    public JobDetail updateParkingLotsJobDetail()
-    {
-        return  JobBuilder.newJob(UpdateParkingLotsJob.class)
-                .withIdentity("updateParkingLotsJob").storeDurably().build();
-    }
+@Component
+public class SpotCheckScheduler {
+    Logger log = LoggerFactory.getLogger(UpdateParkingLotsJob.class);
 
-    @Bean
-    public Trigger updateParkingLotsJobTrigger()
+    public void startScheduler()
     {
-        return TriggerBuilder.newTrigger().forJob(updateParkingLotsJobDetail())
-                .withIdentity("updateParkingLotsTrigger").withSchedule(SimpleScheduleBuilder.repeatSecondlyForever(1)).build();
+        try
+
+        {
+            SchedulerFactory schedulerFactory = new StdSchedulerFactory();
+            Scheduler scheduler = schedulerFactory.getScheduler();
+            scheduler.start();
+
+            JobDetail job = JobBuilder.newJob(UpdateParkingLotsJob.class)
+                    .withIdentity("myJob", "group1")
+                    .build();
+            Trigger trigger = TriggerBuilder.newTrigger()
+                    .withIdentity("myTrigger", "group1")
+                    .startNow()
+                    .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+                            .withIntervalInSeconds(1)
+                            .repeatForever())
+                    .build();
+
+
+            scheduler.scheduleJob(job, trigger);
+
+        }
+        catch (Exception ex)
+        {
+            log.error(ex.getLocalizedMessage());
+        }
     }
 }

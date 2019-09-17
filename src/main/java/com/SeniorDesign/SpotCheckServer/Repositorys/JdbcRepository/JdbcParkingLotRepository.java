@@ -37,7 +37,8 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
 
 
     @Override
-    public ParkingLot getParkingLot(int lotId) {
+    public ParkingLot getParkingLot(int lotId)
+    {
         return null;
     }
 }
