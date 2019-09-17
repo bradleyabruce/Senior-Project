@@ -3,11 +3,13 @@ package com.SeniorDesign.SpotCheckServer.Controllers;
 import com.SeniorDesign.SpotCheckServer.Models.Device;
 import com.SeniorDesign.SpotCheckServer.Models.Devices;
 import com.SeniorDesign.SpotCheckServer.Services.DeviceService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class DeviceController
     DeviceService deviceService;
     @Autowired
     Devices devices;
+    Logger log = LoggerFactory.getLogger(DeviceController.class);
 
     @RequestMapping(value = "getDevices", method = RequestMethod.GET)
     @ResponseBody
@@ -26,6 +29,13 @@ public class DeviceController
     {
         devices.setDeviceList(deviceService.getAllDevices());
         return devices.getDeviceList();
+    }
+
+    @RequestMapping(value = "updateDevices", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity testMethod(@RequestBody String requestDto)
+    {
+        return deviceService.updateDevice(requestDto);
     }
 
 }
