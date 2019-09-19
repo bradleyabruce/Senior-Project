@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,13 +35,12 @@ public class DeviceService
         {
             ObjectMapper mapper = new ObjectMapper();
             Device device = mapper.readValue(requestDto, Device.class);
-        }
         catch (Exception ex)
         {
             log.error("Error processing update device");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("updateDevice", HttpStatus.BAD_REQUEST);
         }
+            return new ResponseEntity("updateDevice", HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity("updateDevice", HttpStatus.OK);
 
