@@ -5,7 +5,6 @@ com\SeniorDesign\SpotCheckServer\Controllers\DeviceController.class
 com\SeniorDesign\SpotCheckServer\Quartz\Jobs\UpdateParkingLotsJob.class
 com\SeniorDesign\SpotCheckServer\Controllers\ParkingLotController.class
 com\SeniorDesign\SpotCheckServer\Quartz\SpotCheckJobListener.class
-com\SeniorDesign\SpotCheckServer\Quartz\Scheduler.class
 com\SeniorDesign\SpotCheckServer\Repositorys\ParkingLotRepository.class
 com\SeniorDesign\SpotCheckServer\Application.class
 com\SeniorDesign\SpotCheckServer\Repositorys\JdbcRepository\JdbcDeviceRepository.class

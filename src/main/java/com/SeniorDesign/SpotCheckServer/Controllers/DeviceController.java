@@ -31,11 +31,12 @@ public class DeviceController
         return devices.getDeviceList();
     }
 
-    @RequestMapping(value = "updateDevices", method = RequestMethod.POST)
+    @RequestMapping(value = "updateDevice", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity testMethod(@RequestBody String requestDto)
+    public ResponseEntity updateDevice(@RequestBody String requestDto)
     {
-        return deviceService.updateDevice(requestDto);
+        ResponseEntity updateResult = deviceService.updateDevice(requestDto);
+        return updateResult;
     }
 
 }

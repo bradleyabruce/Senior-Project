@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -29,19 +31,30 @@ public class DeviceService
 
     public ResponseEntity updateDevice(String requestDto)
     {
+        //Mapper used to serialize json from api request into object
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
         try
         {
-            ObjectMapper mapper = new ObjectMapper();
+            //create new device object
+            // ** Note: Make sure api call properties are in camel case (ex: deviceId not DeviceId)
             Device device = mapper.readValue(requestDto, Device.class);
+            boolean updateResult = deviceRepository.updateDevice(device);
+
+            if(updateResult)
+            {
+                return new ResponseEntity("updateDevice - Success", HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity("updateDevice - Failure", HttpStatus.BAD_REQUEST);
+            }
         }
         catch (Exception ex)
         {
             log.error("Error processing update device");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("updateDevice", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("updateDevice - Exception Failure", HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity("updateDevice", HttpStatus.OK);
-
     }
 }

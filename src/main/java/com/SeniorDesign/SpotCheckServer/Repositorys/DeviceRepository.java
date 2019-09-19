@@ -11,4 +11,6 @@ public interface DeviceRepository
     public List<Device> getDevices();
 
     public Device getDevice(int deviceId);
+
+    public boolean updateDevice(Device device);
 }
