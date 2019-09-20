@@ -33,11 +33,11 @@ public class ParkingLotService
 
         if(spot.isOpenFlag())
         {
-            openSpots -= 1;
+            openSpots += 1;
         }
         else
         {
-            openSpots += 1;
+            openSpots -= 1;
         }
         return openSpots;
     }

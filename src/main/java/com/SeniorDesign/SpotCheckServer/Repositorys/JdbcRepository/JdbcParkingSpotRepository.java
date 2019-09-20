@@ -15,6 +15,7 @@ import java.util.List;
 public class JdbcParkingSpotRepository implements ParkingSpotRepository {
 
     private final String GET_PARKING_SPOT_BY_LOT_ID = "SELECT SpotId, FloorNum, LotId, OpenFlag from tSpot where LotId = ?";
+    private final String UPDATE_SPOT_BY_ID = "UPDATE tSpot set OpenFlag = ? WHERE SpotId = ?";
 
     Logger log = LoggerFactory.getLogger(JdbcParkingSpotRepository.class);
 
@@ -42,6 +43,6 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
     @Override
     public void updateParkingSpot(ParkingSpot spot)
     {
-
+        jdbctemplate.update(UPDATE_SPOT_BY_ID, spot.isOpenFlag(), spot.getSpotId());
     }
 }
