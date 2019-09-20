@@ -12,13 +12,14 @@ import org.springframework.stereotype.Component;
 
 public class UpdateParkingLotsJob implements Job
 {
+    Logger log = LoggerFactory.getLogger(UpdateParkingLotsJob.class);
+
     @Autowired
     ParkingLotService parkingLotService;
-    Logger log = LoggerFactory.getLogger(UpdateParkingLotsJob.class);
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException
     {
-        log.info("THIS IS HTE UPDATEPARKINGLOTSJOB");
+        log.info("THIS IS THE UPDATEPARKINGLOTSJOB");
     }
 }
