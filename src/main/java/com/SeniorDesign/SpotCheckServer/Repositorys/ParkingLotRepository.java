@@ -1,6 +1,7 @@
 package com.SeniorDesign.SpotCheckServer.Repositorys;
 
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -8,7 +9,15 @@ import java.util.List;
 @Component
 public interface ParkingLotRepository
 {
-    public List<ParkingLot> getParkingLots();
+     List<ParkingLot> getParkingLots();
 
-    public ParkingLot getParkingLot(int lotId);
+     ParkingLot getParkingLot(int lotId);
+
+     int getOpenParkingSpotsByLotId(ParkingSpot spot);
+
+     void updateParkingLot(ParkingLot lot);
+
+     void updateOpenParking(int lotId, int change);
+
+     void insertLotUsage(ParkingSpot spot);
 }
