@@ -14,14 +14,15 @@ public class ParkingLotMapper implements RowMapper<ParkingLot>
     @Override
     public ParkingLot mapRow(ResultSet resultSet, int i) throws SQLException {
         ParkingLot parkingLot = new ParkingLot();
-        parkingLot.setLotId(resultSet.getLong("LOT_ID"));
-        parkingLot.setLotName(resultSet.getString("LOT_NAME"));
-        parkingLot.setAddress(resultSet.getString("ADDRESS"));
-        parkingLot.setState(resultSet.getString("STATE"));
-        parkingLot.setCity(resultSet.getString("CITY"));
-        parkingLot.setZipCode(resultSet.getInt("ZIP_CODE"));
-        parkingLot.setLat(resultSet.getBigDecimal("LAT"));
-        parkingLot.setLon(resultSet.getBigDecimal("LONG"));
+        parkingLot.setLotId(resultSet.getLong("LotId"));
+        parkingLot.setLotName(resultSet.getString("LotName"));
+        parkingLot.setAddress(resultSet.getString("Address"));
+        parkingLot.setState(resultSet.getString("State"));
+        parkingLot.setZipCode(resultSet.getInt("ZipCode"));
+        parkingLot.setLat(resultSet.getBigDecimal("Latitude"));
+        parkingLot.setLon(resultSet.getBigDecimal("Longitude"));
+        parkingLot.setContactId(resultSet.getInt("ContactId"));
+        parkingLot.setOpenSpots(resultSet.getInt("OpenSpots"));
 
         return parkingLot;
 

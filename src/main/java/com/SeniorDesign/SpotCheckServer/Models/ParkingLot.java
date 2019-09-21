@@ -6,15 +6,16 @@ import java.math.BigDecimal;
 
 @Component
 public class ParkingLot {
-    Long lotId;
-    String lotName;
-    String address;
-    int zipCode;
-    String city;
-    String state;
-    BigDecimal lat;
-    BigDecimal lon;
-
+    private Long lotId;
+    private String lotName;
+    private String address;
+    private int zipCode;
+    private String city;
+    private String state;
+    private BigDecimal lat;
+    private BigDecimal lon;
+    private int ContactId;
+    private int OpenSpots;
 
 
     public Long getLotId() {
@@ -79,5 +80,21 @@ public class ParkingLot {
 
     public void setLon(BigDecimal lon) {
         this.lon = lon;
+    }
+
+    public int getContactId() {
+        return ContactId;
+    }
+
+    public void setContactId(int contactId) {
+        ContactId = contactId;
+    }
+
+    public int getOpenSpots() {
+        return OpenSpots;
+    }
+
+    public void setOpenSpots(int openSpots) {
+        OpenSpots = openSpots;
     }
 }
