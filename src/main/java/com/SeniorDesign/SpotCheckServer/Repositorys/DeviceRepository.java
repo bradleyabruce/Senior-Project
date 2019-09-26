@@ -13,4 +13,6 @@ public interface DeviceRepository
     public Device getDevice(int deviceId);
 
     public boolean updateDevice(Device device);
+
+    public Integer createDevice(Device device);
 }

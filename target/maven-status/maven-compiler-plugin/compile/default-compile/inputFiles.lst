@@ -1,20 +1,26 @@
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Models\ParkingLot.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Config\SpotCheckJdbcConfig.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Controllers\DeviceController.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Controllers\ParkingLotController.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Repositorys\DeviceRepository.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Repositorys\JdbcRepository\JdbcDeviceRepository.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Repositorys\Mappers\ParkingLotMapper.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Application.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Models\Devices.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Repositorys\Mappers\DeviceMapper.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Services\ParkingLotService.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\ServletInitializer.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Models\ParkingLots.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Services\DeviceService.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Models\Device.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Quartz\Jobs\UpdateParkingLotsJob.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Repositorys\ParkingLotRepository.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Repositorys\JdbcRepository\JdbcParkingLotRepository.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Quartz\SpotCheckJobListener.java
-F:\Projects\Senior Project\SpotCheckServer\src\main\java\com\SeniorDesign\SpotCheckServer\Quartz\SpotCheckScheduler.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Config/SpotCheckJdbcConfig.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingLots.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Quartz/SpotCheckScheduler.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/DeviceService.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/ParkingSpotService.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/OpenSpotMapper.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/ParkingSpotRepository.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/DeviceRepository.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/Device.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcParkingLotRepository.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Controllers/ParkingLotController.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Application.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/ServletInitializer.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/DeviceMapper.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/ParkingLotService.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcDeviceRepository.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcParkingSpotRepository.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/ParkingLotRepository.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/ParkingLotMapper.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Quartz/Jobs/UpdateParkingLotsJob.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingSpot.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingLot.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Controllers/ParkingSpotController.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Controllers/DeviceController.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/Devices.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/ParkingSpotMapper.java

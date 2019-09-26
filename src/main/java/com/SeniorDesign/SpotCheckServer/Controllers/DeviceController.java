@@ -25,10 +25,10 @@ public class DeviceController
 
     @RequestMapping(value = "getDevices", method = RequestMethod.GET)
     @ResponseBody
-    public List<Device> getDevices()
+    public ResponseEntity getDevices()
     {
-        devices.setDeviceList(deviceService.getAllDevices());
-        return devices.getDeviceList();
+        ResponseEntity deviceList = (ResponseEntity) deviceService.getAllDevices();
+        return deviceList;
     }
 
     @RequestMapping(value = "updateDevice", method = RequestMethod.POST)
@@ -37,6 +37,14 @@ public class DeviceController
     {
         ResponseEntity updateResult = deviceService.updateDevice(requestDto);
         return updateResult;
+    }
+
+    @RequestMapping(value = "createDevice", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createDevice(@RequestBody String requestDto)
+    {
+        ResponseEntity createResult = deviceService.createDevice(requestDto);
+        return createResult;
     }
 
 }

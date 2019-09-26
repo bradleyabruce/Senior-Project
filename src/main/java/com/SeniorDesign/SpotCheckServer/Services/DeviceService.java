@@ -23,10 +23,9 @@ public class DeviceService
     Logger log = LoggerFactory.getLogger(DeviceService.class);
 
 
-
-    public List<Device> getAllDevices()
+    public ResponseEntity getAllDevices()
     {
-        return deviceRepository.getDevices();
+        return new ResponseEntity(deviceRepository.getDevices(), HttpStatus.OK);
     }
 
     public ResponseEntity updateDevice(String requestDto)
@@ -44,17 +43,46 @@ public class DeviceService
 
             if(updateResult)
             {
-                return new ResponseEntity("updateDevice - Success", HttpStatus.OK);
+                return new ResponseEntity("Success", HttpStatus.OK);
             }
             else {
-                return new ResponseEntity("updateDevice - Failure", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Update Device", HttpStatus.BAD_REQUEST);
             }
         }
         catch (Exception ex)
         {
             log.error("Error processing update device");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("updateDevice - Exception Failure", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Exception Failure\nUpdate Device\n" + ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity createDevice(String requestDto)
+    {
+        //Mapper used to serialize json from api request into object
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
+        try
+        {
+            //create new device object
+            // ** Note: Make sure api call properties are in camel case (ex: deviceId not DeviceId)
+            Device device = mapper.readValue(requestDto, Device.class);
+            Integer createResult = deviceRepository.createDevice(device);
+
+            if(createResult != null)
+            {
+                return new ResponseEntity(createResult, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity("Failure - Create Device", HttpStatus.BAD_REQUEST);
+            }
+        }
+        catch(Exception ex)
+        {
+            log.error("Error processing create device");
+            log.error(ex.getLocalizedMessage());
+            return new ResponseEntity("Exception Failure\nCreate Device\n" + ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }
