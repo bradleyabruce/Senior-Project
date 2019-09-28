@@ -1,6 +1,7 @@
 package com.SeniorDesign.SpotCheckServer.Repositorys.JdbcRepository;
 
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.OpenSpotMapper;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.ParkingLotMapper;
@@ -38,10 +39,12 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
                                         " VALUES(?, CAST(CURRENT_TIMESTAMP AS DATETIME), ?)";
 
     @Override
-    public List<ParkingLot> getParkingLots() {
+    public ParkingLots getParkingLots() {
         try {
             List<ParkingLot> lots = jdbctemplate.query(GET_PARKING_LOTS, parkingLotMapper);
-            return lots;
+            ParkingLots parkingLots = new ParkingLots();
+            parkingLots.setParkingLotList(lots);
+            return parkingLots;
              }
             catch (Exception ex)
             {

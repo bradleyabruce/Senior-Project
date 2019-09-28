@@ -1,6 +1,7 @@
 package com.SeniorDesign.SpotCheckServer.Services;
 
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class ParkingLotService
     @Autowired
     ParkingLotRepository parkingLotRepository;
 
-    public List<ParkingLot> getAllParkingLots()
+    public ParkingLots getAllParkingLots()
     {
         return parkingLotRepository.getParkingLots();
     }

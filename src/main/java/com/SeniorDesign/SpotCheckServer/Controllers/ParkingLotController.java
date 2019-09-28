@@ -22,10 +22,10 @@ public class ParkingLotController
 
     @RequestMapping(value = "getParkingLots", method = RequestMethod.GET)
     @ResponseBody
-    public List<ParkingLot> getParkingLot()
+    public ParkingLots getParkingLot()
     {
-        parkingLots.setParkingLotList(parkingLotService.getAllParkingLots());
-        return parkingLots.getParkingLotList();
+        parkingLots = parkingLotService.getAllParkingLots();
+        return parkingLots;
     }
 
 }

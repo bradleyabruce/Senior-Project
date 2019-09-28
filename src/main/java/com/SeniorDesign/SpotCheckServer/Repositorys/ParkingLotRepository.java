@@ -1,6 +1,7 @@
 package com.SeniorDesign.SpotCheckServer.Repositorys;
 
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @Component
 public interface ParkingLotRepository
 {
-     List<ParkingLot> getParkingLots();
+     ParkingLots getParkingLots();
 
      ParkingLot getParkingLot(int lotId);
 
