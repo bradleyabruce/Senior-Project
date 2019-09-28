@@ -20,6 +20,7 @@ public class DeviceMapper implements RowMapper<Device>
         device.setLotId(resultSet.getInt("LotID"));
         device.setFloorNumber(resultSet.getInt("FloorNumber"));
         device.setLastUpdateDate(resultSet.getDate("LastUpdateDate"));
+        device.setCompanyId(resultSet.getInt("CompanyId"));
 
         return device;
     }

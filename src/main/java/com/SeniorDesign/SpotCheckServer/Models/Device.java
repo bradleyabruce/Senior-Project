@@ -14,6 +14,7 @@ public class Device
     int LotId;
     int FloorNumber;
     Date LastUpdateDate;
+    int CompanyId;
 
     public long getDeviceID() { return DeviceId; }
     public void setDeviceId(Long deviceId) { this.DeviceId = deviceId; }
@@ -38,4 +39,7 @@ public class Device
 
     public Date getLastUpdateDate(){ return LastUpdateDate; }
     public void setLastUpdateDate(Date lastUpdateDate){ this.LastUpdateDate = lastUpdateDate; }
+
+    public int getCompanyId(){ return CompanyId; }
+    public void setCompanyId(int companyId){ this.CompanyId = companyId; }
 }
