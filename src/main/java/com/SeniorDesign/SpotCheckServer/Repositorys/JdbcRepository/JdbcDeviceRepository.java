@@ -32,7 +32,7 @@ public class JdbcDeviceRepository implements DeviceRepository
     {
         try
         {
-            final String GET_DEVICES = "SELECT DeviceID, DeviceName, LocalIpAddress, ExternalIpAddress, MacAddress, LotID, FloorNumber, LastUpdateDate FROM tDevice";
+            final String GET_DEVICES = "SELECT DeviceID, DeviceName, LocalIpAddress, ExternalIpAddress, MacAddress, LotID, FloorNumber, LastUpdateDate, CompanyID FROM tDevice";
             List<Device> devices = jdbcTemplate.query(GET_DEVICES, deviceMapper);
             return devices;
         }
@@ -54,8 +54,15 @@ public class JdbcDeviceRepository implements DeviceRepository
 
             final String updateQuery = "Update tDevice Set LocalIpAddress = '" + device.getLocalIpAddress() + "', ExternalIpAddress = '" + device.getExternalIpAddress() + "', LastUpdateDate = '" + dateString + "' Where DeviceId = " + deviceId + ";";
 
-            jdbcTemplate.execute(updateQuery);
-            return true;
+            int affectedRows = jdbcTemplate.update(updateQuery);
+
+            if(affectedRows == 1)
+            {
+                return true;
+            }
+            else{
+                return false;
+            }
         }
 
         catch (Exception ex)
@@ -83,6 +90,7 @@ public class JdbcDeviceRepository implements DeviceRepository
             parameters.put("LotID", device.getLotId());
             parameters.put("FloorNumber", device.getFloorNumber());
             parameters.put("LastUpdateDate", dateString);
+            parameters.put("CompanyID", device.getCompanyId());
 
             Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
             int newDeviceID = ((Number) key).intValue();

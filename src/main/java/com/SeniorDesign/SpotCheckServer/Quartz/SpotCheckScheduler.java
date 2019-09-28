@@ -17,7 +17,7 @@ public class SpotCheckScheduler {
 
         {
             SchedulerFactory schedulerFactory = new StdSchedulerFactory();
-            Scheduler scheduler = schedulerFactory.getScheduler();
+            Scheduler scheduler = schedul    erFactory.getScheduler();
             scheduler.start();
 
             JobDetail job = JobBuilder.newJob(UpdateParkingLotsJob.class)
