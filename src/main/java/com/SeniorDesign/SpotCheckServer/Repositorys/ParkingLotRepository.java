@@ -12,6 +12,9 @@ public interface ParkingLotRepository
 {
      ParkingLots getParkingLots();
 
+     //for ios return
+     List<ParkingLot> getParkingLotsIOS();
+
      ParkingLot getParkingLot(int lotId);
 
      int getOpenParkingSpotsByLotId(ParkingSpot spot);

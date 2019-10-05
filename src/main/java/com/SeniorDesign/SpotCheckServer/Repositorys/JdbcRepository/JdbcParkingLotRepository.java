@@ -53,6 +53,20 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
             }
         }
 
+    //This is only for IOS to use
+    @Override
+    public List<ParkingLot> getParkingLotsIOS() {
+        try {
+            List<ParkingLot> lots = jdbctemplate.query(GET_PARKING_LOTS, parkingLotMapper);
+            return lots;
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getLocalizedMessage());
+            return null;
+        }
+    }
+
 
     @Override
     public ParkingLot getParkingLot(int lotId)
