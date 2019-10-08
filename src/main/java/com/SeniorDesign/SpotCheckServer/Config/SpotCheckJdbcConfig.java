@@ -16,7 +16,7 @@ public class SpotCheckJdbcConfig {
     public DataSource mysqlDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dataSource.setUrl("jdbc:sqlserver://spotcheckdb.database.windows.net;databaseName=SpotCheckDB");
+        dataSource.setUrl("jdbc:sqlserver://174.101.154.93;databaseName=SpotCheckDB");
         dataSource.setUsername("spotCheckAdmin");
         dataSource.setPassword("Clermont16");
 
