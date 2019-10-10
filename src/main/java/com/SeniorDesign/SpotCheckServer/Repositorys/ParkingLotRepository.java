@@ -1,8 +1,7 @@
 package com.SeniorDesign.SpotCheckServer.Repositorys;
 
-import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
-import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
-import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
+import com.SeniorDesign.SpotCheckServer.Models.*;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,6 +15,8 @@ public interface ParkingLotRepository
      List<ParkingLot> getParkingLotsIOS();
 
      ParkingLot getParkingLot(int lotId);
+
+     ParkingLots getNearbyParkingLots(SearchRequest user);
 
      int getOpenParkingSpotsByLotId(ParkingSpot spot);
 
