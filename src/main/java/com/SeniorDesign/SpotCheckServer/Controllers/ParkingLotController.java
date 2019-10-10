@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("parkingLot")
 public class ParkingLotController
@@ -54,6 +55,3 @@ public class ParkingLotController
     }
 
 }
-
-}
-

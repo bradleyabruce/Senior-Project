@@ -1,9 +1,6 @@
 package com.SeniorDesign.SpotCheckServer.Services;
 
-import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
-import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
-import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
-import com.SeniorDesign.SpotCheckServer.Models.Users;
+import com.SeniorDesign.SpotCheckServer.Models.*;
 import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingLotRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.catalina.User;
@@ -30,7 +27,7 @@ public class ParkingLotService
         ObjectMapper mapper = new ObjectMapper();
         try
         {
-            Users user = mapper.readValue(requestDto, Users.class);
+            SearchRequest user = mapper.readValue(requestDto, SearchRequest.class);
             ParkingLots parkingLots = parkingLotRepository.getNearbyParkingLots(user);
             return parkingLots;
         }

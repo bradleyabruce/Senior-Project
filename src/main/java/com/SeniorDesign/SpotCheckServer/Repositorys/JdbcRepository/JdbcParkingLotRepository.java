@@ -1,9 +1,6 @@
 package com.SeniorDesign.SpotCheckServer.Repositorys.JdbcRepository;
 
-import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
-import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
-import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
-import com.SeniorDesign.SpotCheckServer.Models.Users;
+import com.SeniorDesign.SpotCheckServer.Models.*;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.OpenSpotMapper;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.ParkingLotMapper;
 import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingLotRepository;
@@ -61,28 +58,14 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
             }
         }
     @Override
-    public ParkingLots getNearbyParkingLots(Users user)
+    public ParkingLots getNearbyParkingLots(SearchRequest request)
     {
         try
         {
-            List<ParkingLot> lots = jdbctemplate.query(GET_NEARBY_PARKING_LOTS, parkingLotMapper, user.getLat(), user.getLon(), 15);
+            List<ParkingLot> lots = jdbctemplate.query(GET_NEARBY_PARKING_LOTS, parkingLotMapper, request.getLat(), request.getLon(), request.getDistanceInMiles());
             ParkingLots parkingLots= new ParkingLots();
             parkingLots.setParkingLotList(lots);
             return parkingLots;
-        }
-        catch (Exception ex)
-        {
-            System.out.println(ex.getLocalizedMessage());
-            return null;
-        }
-    }
-
-    //This is only for IOS to use
-    @Override
-    public List<ParkingLot> getParkingLotsIOS() {
-        try {
-            List<ParkingLot> lots = jdbctemplate.query(GET_PARKING_LOTS, parkingLotMapper);
-            return lots;
         }
         catch (Exception ex)
         {
