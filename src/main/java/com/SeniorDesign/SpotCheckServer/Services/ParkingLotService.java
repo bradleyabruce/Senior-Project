@@ -3,7 +3,10 @@ package com.SeniorDesign.SpotCheckServer.Services;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
+import com.SeniorDesign.SpotCheckServer.Models.Users;
 import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingLotRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,23 @@ public class ParkingLotService
     {
         return parkingLotRepository.getParkingLots();
     }
+
+    public ParkingLots getNearbyParkingLots(String requestDto)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        try
+        {
+            Users user = mapper.readValue(requestDto, Users.class);
+            ParkingLots parkingLots = parkingLotRepository.getNearbyParkingLots(user);
+            return parkingLots;
+        }
+        catch (Exception ex)
+        {
+            return new ParkingLots();
+        }
+
+    }
+
 
     public void updateOpenParkingBySpot(ParkingSpot spot)
     {

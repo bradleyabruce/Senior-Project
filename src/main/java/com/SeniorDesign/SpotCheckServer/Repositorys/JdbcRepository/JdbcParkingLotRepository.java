@@ -3,9 +3,11 @@ package com.SeniorDesign.SpotCheckServer.Repositorys.JdbcRepository;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
+import com.SeniorDesign.SpotCheckServer.Models.Users;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.OpenSpotMapper;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.ParkingLotMapper;
 import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingLotRepository;
+import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,12 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
             "  where LotId = ?";
     private final String INSERT_LOT_USAGE = "INSERT INTO tLotUsage(SpotId, TimeStamp, ChangeType)" +
                                         " VALUES(?, CAST(CURRENT_TIMESTAMP AS DATETIME), ?)";
+    private final String GET_NEARBY_PARKING_LOTS = "DECLARE @CurrentLocation geography; " +  //Lat, Lon, miles to search
+            "SET @CurrentLocation  = geography::Point(?, ?, 4326) " +
+            "SELECT * , Coordinates.STDistance(@CurrentLocation) AS Distance FROM tParkingLot " +
+            "WHERE Coordinates.STDistance(@CurrentLocation )<= (? * 1609.34) ";
+
+
 
     @Override
     public ParkingLots getParkingLots() {
@@ -52,6 +60,36 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
                 return null;
             }
         }
+    @Override
+    public ParkingLots getNearbyParkingLots(Users user)
+    {
+        try
+        {
+            List<ParkingLot> lots = jdbctemplate.query(GET_NEARBY_PARKING_LOTS, parkingLotMapper, user.getLat(), user.getLon(), 15);
+            ParkingLots parkingLots= new ParkingLots();
+            parkingLots.setParkingLotList(lots);
+            return parkingLots;
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getLocalizedMessage());
+            return null;
+        }
+    }
+
+    //This is only for IOS to use
+    @Override
+    public List<ParkingLot> getParkingLotsIOS() {
+        try {
+            List<ParkingLot> lots = jdbctemplate.query(GET_PARKING_LOTS, parkingLotMapper);
+            return lots;
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex.getLocalizedMessage());
+            return null;
+        }
+    }
 
 
     @Override
