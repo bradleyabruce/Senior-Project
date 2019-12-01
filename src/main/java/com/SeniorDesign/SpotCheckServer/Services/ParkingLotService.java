@@ -8,27 +8,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import sun.security.provider.certpath.OCSPResponse;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 @Service
 public class ParkingLotService
 {
+
     @Autowired
     ParkingLotRepository parkingLotRepository;
+
+    ObjectMapper mapper = new ObjectMapper();
+
 
     public ParkingLots getAllParkingLots()
     {
         return parkingLotRepository.getParkingLots();
     }
 
-    public ParkingLots getNearbyParkingLots(String requestDto)
+    public ResponseEntity createNewParkingLot(String requestDto)
     {
-        ObjectMapper mapper = new ObjectMapper();
         try
         {
-            SearchRequest user = mapper.readValue(requestDto, SearchRequest.class);
-            ParkingLots parkingLots = parkingLotRepository.getNearbyParkingLots(user);
+            ParkingLot lot = mapper.readValue(requestDto, ParkingLot.class);
+            return parkingLotRepository.createNewParkingLot(lot);
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ParkingLots getNearbyParkingLots(String requestDto)
+    {
+        try
+        {
+            SearchRequest searchRequest = mapper.readValue(requestDto, SearchRequest.class);
+            ParkingLots parkingLots = parkingLotRepository.getNearbyParkingLots(searchRequest);
             return parkingLots;
         }
         catch (Exception ex)
@@ -52,7 +71,6 @@ public class ParkingLotService
         parkingLotRepository.insertLotUsage(spot);
 
     }
-
     private int getOpenSpotsChange(ParkingSpot spot) {
         int openSpots = parkingLotRepository.getOpenParkingSpotsByLotId(spot);
 

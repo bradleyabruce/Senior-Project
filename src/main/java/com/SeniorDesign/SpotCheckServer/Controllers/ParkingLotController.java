@@ -4,6 +4,7 @@ import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
 import com.SeniorDesign.SpotCheckServer.Services.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,13 @@ public class ParkingLotController
     {
         ParkingLots lots =  parkingLotService.getNearbyParkingLots(requestDto);
         return lots.getParkingLotList();
+    }
+
+    @RequestMapping(value = "createNewParkingLot", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity createNewParkingLot(@RequestBody String requestDto)
+    {
+        return parkingLotService.createNewParkingLot(requestDto);
     }
 
 }

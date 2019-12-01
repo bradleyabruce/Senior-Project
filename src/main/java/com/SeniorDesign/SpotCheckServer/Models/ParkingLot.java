@@ -15,7 +15,8 @@ public class ParkingLot {
     private BigDecimal lat;
     private BigDecimal lon;
     private int ContactId;
-    private int OpenSpots;
+    private int openSpots;
+    private int totalSpots;
 
 
     public Long getLotId() {
@@ -91,10 +92,18 @@ public class ParkingLot {
     }
 
     public int getOpenSpots() {
-        return OpenSpots;
+        return openSpots;
     }
 
     public void setOpenSpots(int openSpots) {
-        OpenSpots = openSpots;
+        this.openSpots = openSpots;
+    }
+
+    public int getTotalSpots() {
+        return totalSpots;
+    }
+
+    public void setTotalSpots(int totalSpots) {
+        this.totalSpots = totalSpots;
     }
 }
