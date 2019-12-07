@@ -1,6 +1,7 @@
 package com.SeniorDesign.SpotCheckServer.Services;
 
 import com.SeniorDesign.SpotCheckServer.Controllers.ParkingSpotController;
+import com.SeniorDesign.SpotCheckServer.Models.Device;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingSpotRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,6 +40,21 @@ public class ParkingSpotService {
         }
     }
 
+    public List<ParkingSpot> getParkingSpotsByDeviceId(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            int deviceID = mapper.readValue(requestDto, int.class);
+            return parkingSpotRepository.getParkingSpotsByDeviceId(deviceID);
+        }
+        catch(Exception ex)
+        {
+            log.error("Error parsing Device ID from getParkingSpotsByDeviceId");
+            log.error(ex.getLocalizedMessage());
+            return null;
+        }
+    }
 
     public ResponseEntity updateParkingSpot(String requestDto)
     {

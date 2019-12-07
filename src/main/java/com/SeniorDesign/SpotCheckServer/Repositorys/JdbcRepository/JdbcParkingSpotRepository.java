@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class JdbcParkingSpotRepository implements ParkingSpotRepository {
 
-    private final String GET_PARKING_SPOT_BY_LOT_ID = "SELECT SpotId, FloorNum, LotId, OpenFlag from tSpot where LotId = ?";
+    private final String GET_PARKING_SPOT_BY_LOT_ID = "SELECT * from tSpot where LotId = ?";
     private final String UPDATE_SPOT_BY_ID = "UPDATE tSpot set OpenFlag = ? WHERE SpotId = ?";
 
     Logger log = LoggerFactory.getLogger(JdbcParkingSpotRepository.class);
@@ -23,12 +23,14 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
     private JdbcTemplate jdbctemplate;
 
     @Autowired
-    private ParkingSpotMapper parkingLotMapper;
+    private ParkingSpotMapper parkingSpotMapper;
+
+
     @Override
     public List<ParkingSpot>  getParkingSpotsByLotId(int lotId) {
         try
         {
-            List<ParkingSpot> spots =  jdbctemplate.query(GET_PARKING_SPOT_BY_LOT_ID, parkingLotMapper, lotId);
+            List<ParkingSpot> spots =  jdbctemplate.query(GET_PARKING_SPOT_BY_LOT_ID, parkingSpotMapper, lotId);
             return spots;
         }
         catch (Exception ex)
@@ -38,6 +40,23 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
             return null;
         }
 
+    }
+
+    @Override
+    public List<ParkingSpot> getParkingSpotsByDeviceId(int deviceID) {
+
+        String query = "SELECT * FROM tSpot WHERE DeviceID = ?";
+        try
+        {
+            List<ParkingSpot> spots = jdbctemplate.query(query, parkingSpotMapper, deviceID);
+            return spots;
+        }
+        catch(Exception ex)
+        {
+            log.error("Error getting parking spots for device ID " + deviceID);
+            log.error(ex.getLocalizedMessage());
+            return null;
+        }
     }
 
     @Override

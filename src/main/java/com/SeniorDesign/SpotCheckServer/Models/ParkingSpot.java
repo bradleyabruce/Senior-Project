@@ -8,6 +8,9 @@ public class ParkingSpot {
     private int floorNum;
     private int lotId;
     private boolean openFlag;
+    private int deviceId;
+    private double topLeftImageCoordinate;
+    private double bottomRightImageCoordinate;
 
     public ParkingSpot() {
     }
@@ -43,4 +46,10 @@ public class ParkingSpot {
     public void setOpenFlag(boolean openFlag) {
         this.openFlag = openFlag;
     }
+
+    public void setDeviceId(int deviceID) { this.deviceId = deviceID; }
+
+    public void setTopLeftImageCoordinate(double topLeftImageCoordinate) {this.topLeftImageCoordinate = topLeftImageCoordinate; }
+
+    public void setBottomRightImageCoordinate(double bottomRightImageCoordinate) { this.bottomRightImageCoordinate = bottomRightImageCoordinate; }
 }

@@ -1,3 +1,4 @@
+com/SeniorDesign/SpotCheckServer/Models/Users.class
 com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/OpenSpotMapper.class
 com/SeniorDesign/SpotCheckServer/Controllers/ParkingSpotController.class
 com/SeniorDesign/SpotCheckServer/Application.class
@@ -8,10 +9,12 @@ com/SeniorDesign/SpotCheckServer/Models/Device.class
 com/SeniorDesign/SpotCheckServer/Models/ParkingLot.class
 com/SeniorDesign/SpotCheckServer/Controllers/ParkingLotController.class
 com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/DeviceMapper.class
+com/SeniorDesign/SpotCheckServer/Models/ParkingSpots.class
 com/SeniorDesign/SpotCheckServer/Repositorys/DeviceRepository.class
 com/SeniorDesign/SpotCheckServer/Services/DeviceService.class
 com/SeniorDesign/SpotCheckServer/Repositorys/ParkingLotRepository.class
 com/SeniorDesign/SpotCheckServer/Services/ParkingSpotService.class
+com/SeniorDesign/SpotCheckServer/Models/SearchRequest.class
 com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/ParkingLotMapper.class
 com/SeniorDesign/SpotCheckServer/Config/SpotCheckJdbcConfig.class
 com/SeniorDesign/SpotCheckServer/ServletInitializer.class
