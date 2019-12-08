@@ -2,6 +2,7 @@ package com.SeniorDesign.SpotCheckServer.Services;
 
 import com.SeniorDesign.SpotCheckServer.Controllers.ParkingSpotController;
 import com.SeniorDesign.SpotCheckServer.Models.Device;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingSpotRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,7 +47,8 @@ public class ParkingSpotService {
         {
             ObjectMapper mapper = new ObjectMapper();
             int deviceID = mapper.readValue(requestDto, int.class);
-            return parkingSpotRepository.getParkingSpotsByDeviceId(deviceID);
+            List<ParkingSpot> spots = parkingSpotRepository.getParkingSpotsByDeviceId(deviceID);
+            return spots;
         }
         catch(Exception ex)
         {

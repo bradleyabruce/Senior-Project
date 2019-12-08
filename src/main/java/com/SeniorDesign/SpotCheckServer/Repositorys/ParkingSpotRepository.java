@@ -8,6 +8,7 @@ import java.util.List;
 @Component
 public interface ParkingSpotRepository {
     List<ParkingSpot> getParkingSpotsByLotId(int lotId);
+
     List<ParkingSpot> getParkingSpotsByDeviceId(int deviceID);
 
     void updateParkingSpot(ParkingSpot spot);

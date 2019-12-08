@@ -42,6 +42,7 @@ public class ParkingSpotController {
     @ResponseBody
     public List<ParkingSpot> getParkingSpotsByDeviceId(@RequestBody String requestDto)
     {
-        return parkingSpotService.getParkingSpotsByDeviceId(requestDto);
+        List<ParkingSpot> spots = parkingSpotService.getParkingSpotsByDeviceId(requestDto);
+        return spots;
     }
 }

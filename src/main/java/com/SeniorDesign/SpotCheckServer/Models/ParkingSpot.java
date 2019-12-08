@@ -52,4 +52,16 @@ public class ParkingSpot {
     public void setTopLeftImageCoordinate(double topLeftImageCoordinate) {this.topLeftImageCoordinate = topLeftImageCoordinate; }
 
     public void setBottomRightImageCoordinate(double bottomRightImageCoordinate) { this.bottomRightImageCoordinate = bottomRightImageCoordinate; }
+
+    public int getDeviceId() {
+        return deviceId;
+    }
+
+    public double getTopLeftImageCoordinate() {
+        return topLeftImageCoordinate;
+    }
+
+    public double getBottomRightImageCoordinate() {
+        return bottomRightImageCoordinate;
+    }
 }
