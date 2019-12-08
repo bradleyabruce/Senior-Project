@@ -18,8 +18,11 @@ public class ParkingSpotMapper implements RowMapper<ParkingSpot> {
         spot.setLotId(resultSet.getInt("LotID"));
         spot.setOpenFlag(resultSet.getBoolean("OpenFlag"));
         spot.setDeviceId(resultSet.getInt("DeviceID"));
-        spot.setTopLeftImageCoordinate(resultSet.getDouble("TopLeftImageCoordinate"));
-        spot.setBottomRightImageCoordinate(resultSet.getDouble("BottomRightImageCoordinate"));
+        spot.setTopLeftXCoordinate(resultSet.getInt("TopLeftXCoordinate"));
+        spot.setTopLeftYCoordinate(resultSet.getInt("TopLeftYCoordinate"));
+        spot.setBottomRightXCoordinate(resultSet.getInt("BottomRightXCoordinate"));
+        spot.setBottomRightYCoordinate(resultSet.getInt("BottomRightYCoordinate"));
+        spot.setUpdateDate(resultSet.getDate("UpdateDate"));
         return spot;
     }
 }
