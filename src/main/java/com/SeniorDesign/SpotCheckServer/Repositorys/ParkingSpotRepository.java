@@ -11,5 +11,7 @@ public interface ParkingSpotRepository {
 
     List<ParkingSpot> getParkingSpotsByDeviceId(int deviceID);
 
+    Boolean updateMultipleParkingSpotsAvailabilityBySpotId(ParkingSpot[] spots);
+
     void updateParkingSpot(ParkingSpot spot);
 }

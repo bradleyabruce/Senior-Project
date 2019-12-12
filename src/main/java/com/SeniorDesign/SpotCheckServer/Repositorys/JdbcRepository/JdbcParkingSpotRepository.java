@@ -60,6 +60,29 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
     }
 
     @Override
+    public Boolean updateMultipleParkingSpotsAvailabilityBySpotId(ParkingSpot[] spots) {
+
+        String sql = "";
+        try
+        {
+            for(ParkingSpot spot : spots)
+            {
+                String innerSql = "UPDATE tSpot SET OpenFlag = '" + spot.isOpenFlag() + "' WHERE SpotID = " + spot.getSpotId() + "; ";
+                sql += innerSql;
+            }
+
+            jdbctemplate.update(sql);
+            return true;
+        }
+        catch(Exception ex)
+        {
+            log.error("Error updating multiple parking spots from Raspberry Pi.");
+            log.error(ex.getLocalizedMessage());
+            return false;
+        }
+    }
+
+    @Override
     public void updateParkingSpot(ParkingSpot spot)
     {
         jdbctemplate.update(UPDATE_SPOT_BY_ID, spot.isOpenFlag(), spot.getSpotId());

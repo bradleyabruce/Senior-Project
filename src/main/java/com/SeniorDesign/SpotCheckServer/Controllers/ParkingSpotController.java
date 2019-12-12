@@ -42,7 +42,13 @@ public class ParkingSpotController {
     @ResponseBody
     public List<ParkingSpot> getParkingSpotsByDeviceId(@RequestBody String requestDto)
     {
-        List<ParkingSpot> spots = parkingSpotService.getParkingSpotsByDeviceId(requestDto);
-        return spots;
+        return parkingSpotService.getParkingSpotsByDeviceId(requestDto);
+    }
+
+    @RequestMapping(value = "updateMultipleParkingSpotsAvailabilityBySpotId", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity updateMultipleParkingSpotsAvailabilityBySpotId(@RequestBody String requestDto)
+    {
+        return parkingSpotService.updateMultipleParkingSpotsAvailabilityBySpotId(requestDto);
     }
 }

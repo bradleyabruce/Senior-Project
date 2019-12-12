@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -77,6 +79,24 @@ public class ParkingSpotService {
         }
 
         return new ResponseEntity("updateParking", HttpStatus.OK);
+    }
 
+    public ResponseEntity updateMultipleParkingSpotsAvailabilityBySpotId(String requestDto)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try
+        {
+            ParkingSpot[] spots = mapper.readValue(requestDto, ParkingSpot[].class);
+            Boolean result = parkingSpotRepository.updateMultipleParkingSpotsAvailabilityBySpotId(spots);
+
+            if(result){ return new ResponseEntity("Success", HttpStatus.OK); }
+
+            else { return new ResponseEntity("Failure", HttpStatus.OK); }
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity("Critical Failure", HttpStatus.BAD_REQUEST);
+        }
     }
 }
