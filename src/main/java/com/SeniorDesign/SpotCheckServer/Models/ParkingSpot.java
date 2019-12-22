@@ -61,7 +61,7 @@ public class ParkingSpot {
     public int getTopLeftXCoordinate() {
         return topLeftXCoordinate;
     }
-    public void setTopLeftXCoordinate(int topLeftImageCoordinate) {this.topLeftXCoordinate = topLeftXCoordinate; }
+    public void setTopLeftXCoordinate(int topLeftXCoordinate) {this.topLeftXCoordinate = topLeftXCoordinate; }
 
     //Top Left Y Coordinate
     public int getTopLeftYCoordinate(){ return topLeftYCoordinate; }
