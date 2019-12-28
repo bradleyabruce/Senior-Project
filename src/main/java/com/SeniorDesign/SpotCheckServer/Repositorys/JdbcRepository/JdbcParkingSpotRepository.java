@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Repository
@@ -63,11 +64,12 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
     public Boolean updateMultipleParkingSpotsAvailabilityBySpotId(ParkingSpot[] spots) {
 
         String sql = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         try
         {
             for(ParkingSpot spot : spots)
             {
-                String innerSql = "UPDATE tSpot SET OpenFlag = '" + spot.isOpenFlag() + "' WHERE SpotID = " + spot.getSpotId() + "; ";
+                String innerSql = "UPDATE tSpot SET OpenFlag = '" + spot.isOpenFlag() + "', UpdateDate = '" + dateFormat.format(spot.getUpdateDate()) + "' WHERE SpotID = " + spot.getSpotId() + "; ";
                 sql += innerSql;
             }
 
