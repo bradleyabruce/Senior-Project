@@ -1,5 +1,6 @@
 package com.SeniorDesign.SpotCheckServer.Models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -77,5 +78,6 @@ public class ParkingSpot {
 
     //Update Date
     public Date getUpdateDate(){ return updateDate; }
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public void setUpdateDate(Date updateDate){ this.updateDate = updateDate; }
 }
