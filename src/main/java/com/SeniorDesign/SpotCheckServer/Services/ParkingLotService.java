@@ -56,7 +56,7 @@ public class ParkingLotService
     private int getOpenSpotsChange(ParkingSpot spot) {
         int openSpots = parkingLotRepository.getOpenParkingSpotsByLotId(spot);
 
-        if(spot.isOpenFlag())
+        if(spot.isOpen())
         {
             openSpots += 1;
         }

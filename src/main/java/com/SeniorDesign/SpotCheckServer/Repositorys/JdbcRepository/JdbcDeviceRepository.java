@@ -32,7 +32,7 @@ public class JdbcDeviceRepository implements DeviceRepository
     {
         try
         {
-            final String GET_DEVICES = "SELECT DeviceID, DeviceName, LocalIpAddress, ExternalIpAddress, MacAddress, LotID, FloorNumber, LastUpdateDate, CompanyID FROM tDevice";
+            final String GET_DEVICES = "SELECT DeviceID, DeviceName, LocalIpAddress, ExternalIpAddress, MacAddress, LotID, FloorNumber, LastUpdateDate, CompanyID, TakeNewImage FROM tDevice";
             List<Device> devices = jdbcTemplate.query(GET_DEVICES, deviceMapper);
             return devices;
         }

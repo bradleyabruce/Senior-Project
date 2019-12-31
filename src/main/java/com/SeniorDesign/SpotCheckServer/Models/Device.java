@@ -15,6 +15,7 @@ public class Device
     int FloorNumber;
     Date LastUpdateDate;
     int CompanyId;
+    boolean TakeNewImage;
 
     public long getDeviceID() { return DeviceId; }
     public void setDeviceId(Long deviceId) { this.DeviceId = deviceId; }
@@ -42,4 +43,7 @@ public class Device
 
     public int getCompanyId(){ return CompanyId; }
     public void setCompanyId(int companyId){ this.CompanyId = companyId; }
+
+    public boolean getTakeNewImage(){return TakeNewImage; }
+    public void setTakeNewImage(boolean takeNewImage){ this.TakeNewImage = takeNewImage; }
 }

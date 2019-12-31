@@ -16,7 +16,7 @@ import java.util.List;
 public class JdbcParkingSpotRepository implements ParkingSpotRepository {
 
     private final String GET_PARKING_SPOT_BY_LOT_ID = "SELECT * from tSpot where LotId = ?";
-    private final String UPDATE_SPOT_BY_ID = "UPDATE tSpot set OpenFlag = ? WHERE SpotId = ?";
+    private final String UPDATE_SPOT_BY_ID = "UPDATE tSpot set IsOpen = ? WHERE SpotId = ?";
 
     Logger log = LoggerFactory.getLogger(JdbcParkingSpotRepository.class);
 
@@ -69,7 +69,7 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
         {
             for(ParkingSpot spot : spots)
             {
-                String innerSql = "UPDATE tSpot SET OpenFlag = '" + spot.isOpenFlag() + "', UpdateDate = '" + dateFormat.format(spot.getUpdateDate()) + "' WHERE SpotID = " + spot.getSpotId() + "; ";
+                String innerSql = "UPDATE tSpot SET IsOpen = '" + spot.isOpen() + "', UpdateDate = '" + dateFormat.format(spot.getUpdateDate()) + "' WHERE SpotID = " + spot.getSpotId() + "; ";
                 sql += innerSql;
             }
 
@@ -87,6 +87,6 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
     @Override
     public void updateParkingSpot(ParkingSpot spot)
     {
-        jdbctemplate.update(UPDATE_SPOT_BY_ID, spot.isOpenFlag(), spot.getSpotId());
+        jdbctemplate.update(UPDATE_SPOT_BY_ID, spot.isOpen(), spot.getSpotId());
     }
 }

@@ -16,7 +16,7 @@ public class ParkingSpotMapper implements RowMapper<ParkingSpot> {
         spot.setSpotId(resultSet.getInt("SpotID"));
         spot.setFloorNum(resultSet.getInt("FloorNum"));
         spot.setLotId(resultSet.getInt("LotID"));
-        spot.setOpenFlag(resultSet.getBoolean("OpenFlag"));
+        spot.setIsOpen(resultSet.getBoolean("IsOpen"));
         spot.setDeviceId(resultSet.getInt("DeviceID"));
         spot.setTopLeftXCoordinate(resultSet.getInt("TopLeftXCoordinate"));
         spot.setTopLeftYCoordinate(resultSet.getInt("TopLeftYCoordinate"));

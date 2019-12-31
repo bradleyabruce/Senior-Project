@@ -10,7 +10,7 @@ public class ParkingSpot {
     private int spotId;
     private int floorNum;
     private int lotId;
-    private boolean openFlag;
+    private boolean isOpen;
     private int deviceId;
     private int topLeftXCoordinate;
     private int topLeftYCoordinate;
@@ -45,11 +45,11 @@ public class ParkingSpot {
     }
 
     //Is Open
-    public boolean isOpenFlag() {
-        return openFlag;
+    public boolean isOpen() {
+        return isOpen;
     }
-    public void setOpenFlag(boolean openFlag) {
-        this.openFlag = openFlag;
+    public void setIsOpen(boolean isOpen) {
+        this.isOpen = isOpen;
     }
 
     //Device ID

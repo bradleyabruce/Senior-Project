@@ -126,7 +126,7 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     public void insertLotUsage(ParkingSpot spot) {
 
         try {
-            jdbctemplate.update(INSERT_LOT_USAGE, spot.getLotId(), spot.isOpenFlag());
+            jdbctemplate.update(INSERT_LOT_USAGE, spot.getLotId(), spot.isOpen());
         }
         catch (Exception ex)
         {
