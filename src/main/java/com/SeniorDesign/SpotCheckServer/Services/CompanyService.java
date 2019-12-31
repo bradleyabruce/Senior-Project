@@ -29,7 +29,13 @@ public class CompanyService
 
             if(insertedCompany != null)
             {
-                return new ResponseEntity(insertedCompany, HttpStatus.OK);
+                if(insertedCompany.getCompanyID() != -1)
+                {
+                    return new ResponseEntity(insertedCompany, HttpStatus.OK);
+                }
+                else {
+                    return new ResponseEntity("Failure - " + insertedCompany.getCompanyName(), HttpStatus.CONFLICT);
+                }
             }
             else {
                 return new ResponseEntity("Failure - Sign Up Company", HttpStatus.BAD_REQUEST);
@@ -41,12 +47,32 @@ public class CompanyService
             log.error(ex.getLocalizedMessage());
             return new ResponseEntity("Failure - Sign Up Company", HttpStatus.BAD_REQUEST);
         }
-
     }
 
     public ResponseEntity login(String requestDto)
     {
-        return new ResponseEntity(HttpStatus.OK);
-    }
+        ObjectMapper mapper = new ObjectMapper();
 
+        try
+        {
+            Company receivedCompany = mapper.readValue(requestDto, Company.class);
+            Company matchedCompany = companyRepository.login(receivedCompany);
+
+            if(matchedCompany != null)
+            {
+                return new ResponseEntity(matchedCompany, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Login Company", HttpStatus.BAD_REQUEST);
+            }
+        }
+        catch(Exception ex)
+        {
+            log.error("Error login company");
+            log.error(ex.getLocalizedMessage());
+            return new ResponseEntity("Failure - Login Company", HttpStatus.BAD_REQUEST);
+        }
+    }
 }
+
+

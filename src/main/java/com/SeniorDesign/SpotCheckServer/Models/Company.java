@@ -2,6 +2,11 @@ package com.SeniorDesign.SpotCheckServer.Models;
 
 import org.springframework.stereotype.Component;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+
 @Component
 public class Company
 {
@@ -44,6 +49,32 @@ public class Company
 
     //CompanyPassword
     public String getCompanyPassword(){ return this.CompanyPassword; }
-    public void setCompanyPassword(String companyPassword){this.CompanyPassword = companyPassword; }
+    public void setCompanyPassword(String companyPassword){this.CompanyPassword = HashPassword(companyPassword); }
 
+    private String HashPassword(String password)
+    {
+        final String SALT = "company-salt-text";
+
+        //salt password before hashing
+        String saltedPassword = SALT + password;
+
+        //hash the salted password
+        StringBuilder hash = new StringBuilder();
+
+        try
+        {
+            MessageDigest sha = MessageDigest.getInstance("SHA-1");
+            byte[] hashedBytes = sha.digest(saltedPassword.getBytes());
+            char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+            for(byte b : hashedBytes)
+            {
+                hash.append(digits[(b & 0xf0) >> 4]);
+                hash.append(digits[b & 0x0f]);
+            }
+        }
+        catch (NoSuchAlgorithmException e){ return ""; }
+
+        return hash.toString();
+    }
 }

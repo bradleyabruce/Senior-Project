@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -24,24 +25,37 @@ public class JdbcCompanyRepository implements CompanyRepository
     @Override
     public Company signUp(Company company)
     {
-        try
-        {
-            SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-            jdbcInsert.withTableName("tCompany").usingGeneratedKeyColumns("CompanyID");
+        try {
+            //Verify that username is not already in use
+            String sql = "SELECT * FROM tCompany WHERE CompanyUsername = ?";
 
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("CompanyName", company.getCompanyName());
-            parameters.put("Address", company.getAddress());
-            parameters.put("ZipCode", company.getZipCode());
-            parameters.put("City", company.getCity());
-            parameters.put("State", company.getState());
-            parameters.put("CompanyUsername", company.getCompanyUsername());
-            parameters.put("CompanyPassword", company.getCompanyPassword());
+            List<Company> companiesWithMatchingUsernames = jdbcTemplate.query(sql, companyMapper, company.getCompanyUsername());
 
-            Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-            int newCompanyID = ((Number) key).intValue();
-            company.setCompanyID(newCompanyID);
-            return company;
+            if (companiesWithMatchingUsernames.isEmpty()) {
+
+                SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+                jdbcInsert.withTableName("tCompany").usingGeneratedKeyColumns("CompanyID");
+
+                Map<String, Object> parameters = new HashMap<>();
+                parameters.put("CompanyName", company.getCompanyName());
+                parameters.put("Address", company.getAddress());
+                parameters.put("ZipCode", company.getZipCode());
+                parameters.put("City", company.getCity());
+                parameters.put("State", company.getState());
+                parameters.put("CompanyUsername", company.getCompanyUsername());
+                parameters.put("CompanyPassword", company.getCompanyPassword());
+
+                Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+                int newCompanyID = ((Number) key).intValue();
+                company.setCompanyID(newCompanyID);
+                return company;
+            }
+            else{
+                Company error = new Company();
+                error.setCompanyID(-1);
+                error.setCompanyName("Company already exists with specified username.");
+                return error;
+            }
         }
         catch(Exception ex)
         {
@@ -50,7 +64,18 @@ public class JdbcCompanyRepository implements CompanyRepository
     }
 
     @Override
-    public Company login(Company company) {
-        return null;
+    public Company login(Company company)
+    {
+        String sql = "SELECT * FROM tCompany WHERE CompanyUsername = ? AND CompanyPassword =  ?";
+
+        List<Company> matchingCompanies = jdbcTemplate.query(sql, companyMapper, company.getCompanyUsername(), company.getCompanyPassword());
+
+        if(matchingCompanies.size() == 1)
+        {
+            return matchingCompanies.get(0);
+        }
+        else{
+            return null;
+        }
     }
 }
