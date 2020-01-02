@@ -6,16 +6,16 @@ import java.util.Date;
 @Component
 public class Device
 {
-    Long DeviceId;
-    String DeviceName;
-    String LocalIpAddress;
-    String ExternalIpAddress;
-    String MacAddress;
-    int LotId;
-    int FloorNumber;
-    Date LastUpdateDate;
-    int CompanyId;
-    boolean TakeNewImage;
+    private Long DeviceId;
+    private String DeviceName;
+    private String LocalIpAddress;
+    private String ExternalIpAddress;
+    private String MacAddress;
+    private int LotId;
+    private int FloorNumber;
+    private Date LastUpdateDate;
+    private int CompanyId;
+    private boolean TakeNewImage;
 
     public long getDeviceID() { return DeviceId; }
     public void setDeviceId(Long deviceId) { this.DeviceId = deviceId; }

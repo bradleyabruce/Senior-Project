@@ -3,8 +3,10 @@
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingLots.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Quartz/SpotCheckScheduler.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/DeviceService.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/UserRepository.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/ParkingSpotService.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/OpenSpotMapper.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/UserService.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/ParkingSpotRepository.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/DeviceRepository.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/SearchRequest.java
@@ -12,6 +14,7 @@
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/CompanyService.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcParkingLotRepository.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Controllers/ParkingLotController.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/User.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Controllers/CompanyController.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Application.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/CompanyRepository.java
@@ -20,7 +23,6 @@
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingSpots.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/DeviceMapper.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/ParkingLotService.java
-/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/Users.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcDeviceRepository.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcParkingSpotRepository.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/ParkingLotRepository.java
@@ -30,6 +32,9 @@
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingSpot.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingLot.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Controllers/ParkingSpotController.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/UserMapper.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Controllers/DeviceController.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/Devices.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcUserRepository.java
+/Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Controllers/UserController.java
 /Volumes/Seagate HDD/Projects/Senior Project/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/Mappers/ParkingSpotMapper.java

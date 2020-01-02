@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface CompanyRepository
 {
-    public Company signUp(Company company);
+    Company signUp(Company company);
 
-    public Company login(Company company);
+    Company login(Company company);
 }

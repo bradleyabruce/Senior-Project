@@ -1,23 +1,20 @@
 package com.SeniorDesign.SpotCheckServer.Models;
 
 import org.springframework.stereotype.Component;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class Company
 {
-    int CompanyID;
-    String CompanyName;
-    String Address;
-    int ZipCode;
-    String City;
-    String State;
-    String CompanyUsername;
-    String CompanyPassword;
+    private int CompanyID;
+    private String CompanyName;
+    private String Address;
+    private int ZipCode;
+    private String City;
+    private String State;
+    private String CompanyUsername;
+    private String CompanyPassword;
 
     //Company ID
     public int getCompanyID(){return this.CompanyID; }
