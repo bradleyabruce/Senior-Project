@@ -28,23 +28,26 @@ public class UserService
 
             if(insertedUser != null)
             {
+                //Sucessful insert
                 if(insertedUser.getUserID() != -1)
                 {
                     return new ResponseEntity(insertedUser, HttpStatus.OK);
                 }
+                //User already exists in database with specified username
                 else {
-                    return new ResponseEntity("Failure - " + insertedUser.getUsername(), HttpStatus.CONFLICT);
+                    return new ResponseEntity("Failure - User already exists with specified username.", HttpStatus.CONFLICT);
                 }
             }
+            //Something bad happened
             else {
-                return new ResponseEntity("Failure - Sign Up Company", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Exception at user/signUp", HttpStatus.BAD_REQUEST);
             }
         }
         catch(Exception ex)
         {
             log.error("Error signing up new user");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Sign Up User", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failure - Exception at user/signUp", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -62,14 +65,14 @@ public class UserService
                 return new ResponseEntity(matchedUser, HttpStatus.OK);
             }
             else{
-                return new ResponseEntity("Failure - Login User", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Incorrect Username or Password", HttpStatus.BAD_REQUEST);
             }
         }
         catch(Exception ex)
         {
             log.error("Error login user");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Login User", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failure - Exception at user/login", HttpStatus.BAD_REQUEST);
         }
     }
 }

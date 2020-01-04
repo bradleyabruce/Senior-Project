@@ -51,7 +51,6 @@ public class JdbcUserRepository implements UserRepository
             else{
                 User error = new User();
                 error.setUserID(-1);
-                error.setUsername("User already exists with specified username.");
                 return error;
             }
         }

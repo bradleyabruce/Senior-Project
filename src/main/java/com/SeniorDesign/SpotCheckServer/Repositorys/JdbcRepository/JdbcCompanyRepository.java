@@ -52,7 +52,6 @@ public class JdbcCompanyRepository implements CompanyRepository
             else{
                 Company error = new Company();
                 error.setCompanyID(-1);
-                error.setCompanyName("Company already exists with specified username.");
                 return error;
             }
         }

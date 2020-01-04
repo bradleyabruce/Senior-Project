@@ -29,23 +29,26 @@ public class CompanyService
 
             if(insertedCompany != null)
             {
+                //Successful insert
                 if(insertedCompany.getCompanyID() != -1)
                 {
                     return new ResponseEntity(insertedCompany, HttpStatus.OK);
                 }
+                //Company already exists in database with specified username
                 else {
-                    return new ResponseEntity("Failure - " + insertedCompany.getCompanyName(), HttpStatus.CONFLICT);
+                    return new ResponseEntity("Failure - Company already exists with specified username.", HttpStatus.CONFLICT);
                 }
             }
+            //something exploded
             else {
-                return new ResponseEntity("Failure - Sign Up Company", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Exception at company/signUp", HttpStatus.BAD_REQUEST);
             }
         }
         catch(Exception ex)
         {
             log.error("Error signing up new company");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Sign Up Company", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failure - Exception at company/signUp", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -63,14 +66,14 @@ public class CompanyService
                 return new ResponseEntity(matchedCompany, HttpStatus.OK);
             }
             else{
-                return new ResponseEntity("Failure - Login Company", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Incorrect Username or Password", HttpStatus.BAD_REQUEST);
             }
         }
         catch(Exception ex)
         {
             log.error("Error login company");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Login Company", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failure - Exception at company/login", HttpStatus.BAD_REQUEST);
         }
     }
 }
