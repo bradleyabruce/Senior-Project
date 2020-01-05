@@ -15,4 +15,6 @@ public interface DeviceRepository
     public boolean updateDevice(Device device);
 
     public Integer createDevice(Device device);
-}
+
+    public List<Device> getDevicesByCompanyID(int companyID);
+ }

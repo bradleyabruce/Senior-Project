@@ -1,5 +1,6 @@
 package com.SeniorDesign.SpotCheckServer.Models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 
@@ -38,7 +39,9 @@ public class Device
     public int getFloorNumber(){ return FloorNumber; }
     public void setFloorNumber(int floorNumber) { this.FloorNumber = floorNumber; }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public Date getLastUpdateDate(){ return LastUpdateDate; }
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public void setLastUpdateDate(Date lastUpdateDate){ this.LastUpdateDate = lastUpdateDate; }
 
     public int getCompanyId(){ return CompanyId; }

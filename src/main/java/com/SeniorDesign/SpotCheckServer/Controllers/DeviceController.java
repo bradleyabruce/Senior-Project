@@ -31,6 +31,14 @@ public class DeviceController
         return deviceList;
     }
 
+    @RequestMapping(value = "getDevicesByCompanyID", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity getDevicesByCompanyID(@RequestBody String requestDto)
+    {
+        ResponseEntity deviceList = deviceService.getDevicesByCompanyID(requestDto);
+        return deviceList;
+    }
+
     @RequestMapping(value = "updateDevice", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity updateDevice(@RequestBody String requestDto)

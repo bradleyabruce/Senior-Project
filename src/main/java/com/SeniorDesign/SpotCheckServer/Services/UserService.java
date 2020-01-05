@@ -40,14 +40,14 @@ public class UserService
             }
             //Something bad happened
             else {
-                return new ResponseEntity("Failure - Exception at user/signUp", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Exception at user/signUp", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
         catch(Exception ex)
         {
             log.error("Error signing up new user");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Exception at user/signUp", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failure - Exception at user/signUp", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -65,14 +65,14 @@ public class UserService
                 return new ResponseEntity(matchedUser, HttpStatus.OK);
             }
             else{
-                return new ResponseEntity("Failure - Incorrect Username or Password", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Incorrect Username or Password", HttpStatus.CONFLICT);
             }
         }
         catch(Exception ex)
         {
             log.error("Error login user");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Exception at user/login", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failure - Exception at user/login", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

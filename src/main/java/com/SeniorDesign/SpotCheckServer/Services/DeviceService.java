@@ -19,13 +19,39 @@ public class DeviceService
 {
     @Autowired
     DeviceRepository deviceRepository;
-
     Logger log = LoggerFactory.getLogger(DeviceService.class);
-
 
     public ResponseEntity getAllDevices()
     {
         return new ResponseEntity(deviceRepository.getDevices(), HttpStatus.OK);
+    }
+
+    public ResponseEntity getDevicesByCompanyID(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            int companyID = mapper.readValue(requestDto, int.class);
+            List<Device> devices = deviceRepository.getDevicesByCompanyID(companyID);
+
+            if(devices != null)
+            {
+                if(devices.size() > 0)
+                {
+                    return new ResponseEntity(devices, HttpStatus.OK);
+                }
+                else {
+                    return new ResponseEntity("Failure - No devices are linked to this company.", HttpStatus.CONFLICT);
+                }
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at device/getDevicesByCompanyID", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity("Failure - Exception at device/getDevicesByCompanyID", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public ResponseEntity updateDevice(String requestDto)
@@ -46,14 +72,14 @@ public class DeviceService
                 return new ResponseEntity("Success", HttpStatus.OK);
             }
             else {
-                return new ResponseEntity("Failure - Update Device", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Update Device", HttpStatus.CONFLICT);
             }
         }
         catch (Exception ex)
         {
             log.error("Error processing update device");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Exception Failure\nUpdate Device\n" + ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Exception Failure\nUpdate Device\n" + ex.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -75,14 +101,14 @@ public class DeviceService
                 return new ResponseEntity(createResult, HttpStatus.OK);
             }
             else {
-                return new ResponseEntity("Failure - Create Device", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Create Device", HttpStatus.CONFLICT);
             }
         }
         catch(Exception ex)
         {
             log.error("Error processing create device");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Exception Failure\nCreate Device\n" + ex.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Exception Failure\nCreate Device\n" + ex.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

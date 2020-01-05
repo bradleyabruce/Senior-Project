@@ -105,7 +105,22 @@ public class JdbcDeviceRepository implements DeviceRepository
     }
 
     @Override
-    public Device getDevice(int deviceId) {
+    public List<Device> getDevicesByCompanyID(int companyID)
+    {
+        try
+        {
+            String sql = "SELECT * FROM tDevice WHERE CompanyID = ?";
+            List<Device> matchingDevices = jdbcTemplate.query(sql, deviceMapper, companyID);
+            return matchingDevices;
+        }
+        catch(Exception ex){
+            return null;
+        }
+    }
+
+    @Override
+    public Device getDevice(int deviceId)
+    {
         return null;
     }
 }

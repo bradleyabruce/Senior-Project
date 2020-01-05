@@ -41,14 +41,14 @@ public class CompanyService
             }
             //something exploded
             else {
-                return new ResponseEntity("Failure - Exception at company/signUp", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Exception at company/signUp", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
         catch(Exception ex)
         {
             log.error("Error signing up new company");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Exception at company/signUp", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failure - Exception at company/signUp", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -66,14 +66,14 @@ public class CompanyService
                 return new ResponseEntity(matchedCompany, HttpStatus.OK);
             }
             else{
-                return new ResponseEntity("Failure - Incorrect Username or Password", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("Failure - Incorrect Username or Password", HttpStatus.CONFLICT);
             }
         }
         catch(Exception ex)
         {
             log.error("Error login company");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Exception at company/login", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Failure - Exception at company/login", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
