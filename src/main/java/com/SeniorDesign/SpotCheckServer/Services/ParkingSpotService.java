@@ -32,8 +32,8 @@ public class ParkingSpotService {
         try
         {
             ObjectMapper mapper = new ObjectMapper();
-            ParkingSpot spot = mapper.readValue(requestDto, ParkingSpot.class);
-            return parkingSpotRepository.getParkingSpotsByLotId(spot.getLotId());
+            int lotID = mapper.readValue(requestDto, int.class);
+            return parkingSpotRepository.getParkingSpotsByLotId(lotID);
         }
         catch (Exception ex)
         {

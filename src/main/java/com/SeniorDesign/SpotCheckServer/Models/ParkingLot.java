@@ -15,7 +15,6 @@ public class ParkingLot {
     private BigDecimal lat;
     private BigDecimal lon;
     private int ContactId;
-    private int OpenSpots;
 
 
     public Long getLotId() {
@@ -90,11 +89,4 @@ public class ParkingLot {
         ContactId = contactId;
     }
 
-    public int getOpenSpots() {
-        return OpenSpots;
-    }
-
-    public void setOpenSpots(int openSpots) {
-        OpenSpots = openSpots;
-    }
 }

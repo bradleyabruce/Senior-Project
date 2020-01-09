@@ -12,7 +12,7 @@ public class OpenSpotMapper implements RowMapper<ParkingLot> {
     @Override
     public ParkingLot mapRow(ResultSet resultSet, int i) throws SQLException {
         ParkingLot lot = new ParkingLot();
-        lot.setOpenSpots(resultSet.getInt("OpenSpots"));
+        //lot.setOpenSpots(resultSet.getInt("OpenSpots"));
         return lot;
 
     }

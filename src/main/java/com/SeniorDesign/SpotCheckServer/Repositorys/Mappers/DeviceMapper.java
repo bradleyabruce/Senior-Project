@@ -17,10 +17,9 @@ public class DeviceMapper implements RowMapper<Device>
         device.setLocalIpAddress(resultSet.getString("LocalIpAddress"));
         device.setExternalIpAddress(resultSet.getString("ExternalIpAddress"));
         device.setMacAddress(resultSet.getString("MacAddress"));
-        device.setLotId(resultSet.getInt("LotID"));
-        device.setFloorNumber(resultSet.getInt("FloorNumber"));
         device.setLastUpdateDate(resultSet.getDate("LastUpdateDate"));
         device.setCompanyId(resultSet.getInt("CompanyId"));
+        device.setTakeNewImage(resultSet.getBoolean("TakeNewImage"));
 
         return device;
     }

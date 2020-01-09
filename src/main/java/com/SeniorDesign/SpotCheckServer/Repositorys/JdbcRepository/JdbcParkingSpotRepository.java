@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public class JdbcParkingSpotRepository implements ParkingSpotRepository {
 
-    private final String GET_PARKING_SPOT_BY_LOT_ID = "SELECT * from tSpot where LotId = ?";
+    private final String GET_PARKING_SPOT = "SELECT s.SpotID, s.FloorNum, s.LotID, s.deviceid, s.updatedate, sa.IsOpen, sic.TopLeftXCoordinate, sic.TopLeftYCoordinate, sic.BottomRightXCoordinate, sic.BottomRightYCoordinate FROM tSpot s LEFT JOIN tSpotAvailability sa on s.SpotID = sa.SpotID LEFT JOIN tSpotImageCoordinates sic on s.SpotID = sic.SpotID";
     private final String UPDATE_SPOT_BY_ID = "UPDATE tSpot set IsOpen = ? WHERE SpotId = ?";
 
     Logger log = LoggerFactory.getLogger(JdbcParkingSpotRepository.class);
@@ -31,7 +31,8 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
     public List<ParkingSpot>  getParkingSpotsByLotId(int lotId) {
         try
         {
-            List<ParkingSpot> spots =  jdbctemplate.query(GET_PARKING_SPOT_BY_LOT_ID, parkingSpotMapper, lotId);
+            String sqlWhere = " WHERE LotID = ?";
+            List<ParkingSpot> spots =  jdbctemplate.query(GET_PARKING_SPOT + sqlWhere, parkingSpotMapper, lotId);
             return spots;
         }
         catch (Exception ex)
@@ -46,10 +47,10 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
     @Override
     public List<ParkingSpot> getParkingSpotsByDeviceId(int deviceID) {
 
-        String query = "SELECT * FROM tSpot WHERE DeviceID = ?";
+        String sqlWhere = " WHERE DeviceID = ?";
         try
         {
-            List<ParkingSpot> spots = jdbctemplate.query(query, parkingSpotMapper, deviceID);
+            List<ParkingSpot> spots = jdbctemplate.query(GET_PARKING_SPOT + sqlWhere, parkingSpotMapper, deviceID);
             return spots;
         }
         catch(Exception ex)
@@ -69,7 +70,7 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
         {
             for(ParkingSpot spot : spots)
             {
-                String innerSql = "UPDATE tSpot SET IsOpen = '" + spot.isOpen() + "', UpdateDate = '" + dateFormat.format(spot.getUpdateDate()) + "' WHERE SpotID = " + spot.getSpotId() + "; ";
+                String innerSql = "UPDATE tSpotAvailability SET IsOpen = '" + spot.isOpen() + "' WHERE SpotID = " + spot.getSpotId() + "; ";
                 sql += innerSql;
             }
 

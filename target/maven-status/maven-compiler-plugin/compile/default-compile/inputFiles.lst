@@ -18,7 +18,6 @@
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcParkingSpotRepository.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingLots.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/UserService.java
-/Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/Devices.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/ParkingLotRepository.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/Company.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcDeviceRepository.java
@@ -33,7 +32,6 @@
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/CompanyRepository.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Controllers/CompanyController.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingLot.java
-/Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingSpots.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Quartz/Jobs/UpdateParkingLotsJob.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/ServletInitializer.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/Device.java

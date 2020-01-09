@@ -27,8 +27,7 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     @Autowired
     OpenSpotMapper openSpotMapper;
 
-
-    private final String  GET_PARKING_LOTS = "SELECT LotId, Address, ZipCode, City, State, LotName, ContactId, Latitude, Longitude, OpenSpots from tParkingLot";
+    private final String  GET_PARKING_LOTS = "SELECT lot.LotID, lot.Address, lot.ZipCode, lot.City, lot.State, lot.LotName, lot.ContactID, lotCoord.Latitude, lotCoord.Longitude, lotCoord.Coordinates FROM tParkingLot lot LEFT JOIN tParkingLotCoordinates lotCoord ON lot.LotID = lotCoord.ParkingLotID";
     private final String GET_OPEN_SPOTS_BY_LOT_ID = "select OpenSpots from tParkingLot where LotId = ?";
     private final String  GET_PARKING_LOT_BY_ID  = "";
     private final String UPDATE_OPEN_PARKING = "UPDATE tParkingLot " +
