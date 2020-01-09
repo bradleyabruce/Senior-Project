@@ -27,7 +27,7 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     @Autowired
     OpenSpotMapper openSpotMapper;
 
-    private final String  GET_PARKING_LOTS = "SELECT lot.LotID, lot.Address, lot.ZipCode, lot.City, lot.State, lot.LotName, lot.ContactID, lotCoord.Latitude, lotCoord.Longitude, lotCoord.Coordinates FROM tParkingLot lot LEFT JOIN tParkingLotCoordinates lotCoord ON lot.LotID = lotCoord.ParkingLotID";
+    private final String  GET_PARKING_LOTS = "SELECT lot.LotID, lot.Address, lot.ZipCode, lot.City, lot.State, lot.LotName, lot.CompanyID, lotCoord.Latitude, lotCoord.Longitude, lotCoord.Coordinates FROM tParkingLot lot LEFT JOIN tParkingLotCoordinates lotCoord ON lot.LotID = lotCoord.ParkingLotID";
     private final String GET_OPEN_SPOTS_BY_LOT_ID = "select OpenSpots from tParkingLot where LotId = ?";
     private final String  GET_PARKING_LOT_BY_ID  = "";
     private final String UPDATE_OPEN_PARKING = "UPDATE tParkingLot " +
@@ -130,6 +130,23 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
         catch (Exception ex)
         {
             log.error(ex.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public List<ParkingLot> getParkingLotsByCompanyId(int companyID)
+    {
+        try
+        {
+            String sqlWhere = " WHERE CompanyID = ?";
+            List<ParkingLot> lots =  jdbctemplate.query(GET_PARKING_LOTS + sqlWhere, parkingLotMapper, companyID);
+            return lots;
+        }
+        catch (Exception ex)
+        {
+            log.error("Error getting parking spots for companyId " + companyID);
+            log.error(ex.getLocalizedMessage());
+            return null;
         }
     }
 }

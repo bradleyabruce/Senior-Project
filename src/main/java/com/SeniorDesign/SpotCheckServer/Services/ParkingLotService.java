@@ -66,4 +66,32 @@ public class ParkingLotService
         }
         return openSpots;
     }
+
+    public ResponseEntity getParkingLotsByCompanyId(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            int lotID = mapper.readValue(requestDto, int.class);
+            List<ParkingLot> list = parkingLotRepository.getParkingLotsByCompanyId(lotID);
+
+            if(list != null)
+            {
+                if(list.size() > 1)
+                {
+                    return new ResponseEntity(list, HttpStatus.OK);
+                }
+                else {
+                return new ResponseEntity("Failure - No devices are linked to this company.", HttpStatus.CONFLICT);
+                }
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at parkingLots/getParkingLotsByCompanyId", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        catch (Exception ex)
+        {
+            return new ResponseEntity("Failure - Exception at parkingLots/getParkingLotsByCompanyId", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -25,4 +25,6 @@ public interface ParkingLotRepository
      void updateOpenParking(int lotId, int change);
 
      void insertLotUsage(ParkingSpot spot);
+
+     public List<ParkingLot> getParkingLotsByCompanyId(int CompanyID);
 }

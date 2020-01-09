@@ -54,4 +54,10 @@ public class ParkingLotController
         return lots.getParkingLotList();
     }
 
+    @RequestMapping(value="getParkingLotsByCompanyId", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity getParkingLotsByCompanyId(@RequestBody String requestDto)
+    {
+        return parkingLotService.getParkingLotsByCompanyId(requestDto);
+    }
 }

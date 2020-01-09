@@ -41,7 +41,6 @@ public class JdbcParkingSpotRepository implements ParkingSpotRepository {
             log.error(ex.getLocalizedMessage());
             return null;
         }
-
     }
 
     @Override
