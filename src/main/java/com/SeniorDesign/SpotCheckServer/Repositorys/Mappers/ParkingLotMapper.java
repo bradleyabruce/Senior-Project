@@ -22,6 +22,8 @@ public class ParkingLotMapper implements RowMapper<ParkingLot>
         parkingLot.setLat(resultSet.getBigDecimal("Latitude"));
         parkingLot.setLon(resultSet.getBigDecimal("Longitude"));
         parkingLot.setCompanyId(resultSet.getInt("CompanyId"));
+        parkingLot.setOpenSpots(resultSet.getInt("OpenSpots"));
+        parkingLot.setTotalSpots(resultSet.getInt("TotalSpots"));
 
         return parkingLot;
     }
