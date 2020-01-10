@@ -14,7 +14,7 @@ public class ParkingLot {
     private String state;
     private BigDecimal lat;
     private BigDecimal lon;
-    private int ContactId;
+    private int CompanyId;
 
 
     public Long getLotId() {
@@ -81,12 +81,12 @@ public class ParkingLot {
         this.lon = lon;
     }
 
-    public int getContactId() {
-        return ContactId;
+    public int getCompanyId() {
+        return CompanyId;
     }
 
-    public void setContactId(int contactId) {
-        ContactId = contactId;
+    public void setCompanyId(int companyId) {
+        CompanyId = companyId;
     }
 
 }

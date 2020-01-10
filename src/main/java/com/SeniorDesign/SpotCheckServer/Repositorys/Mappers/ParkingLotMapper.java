@@ -10,7 +10,6 @@ import java.sql.SQLException;
 @Component
 public class ParkingLotMapper implements RowMapper<ParkingLot>
 {
-
     @Override
     public ParkingLot mapRow(ResultSet resultSet, int i) throws SQLException {
         ParkingLot parkingLot = new ParkingLot();
@@ -22,9 +21,8 @@ public class ParkingLotMapper implements RowMapper<ParkingLot>
         parkingLot.setZipCode(resultSet.getInt("ZipCode"));
         parkingLot.setLat(resultSet.getBigDecimal("Latitude"));
         parkingLot.setLon(resultSet.getBigDecimal("Longitude"));
-        parkingLot.setContactId(resultSet.getInt("ContactId"));
+        parkingLot.setCompanyId(resultSet.getInt("CompanyId"));
 
         return parkingLot;
-
     }
 }
