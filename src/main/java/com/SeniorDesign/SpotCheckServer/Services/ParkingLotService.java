@@ -7,6 +7,7 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -92,6 +93,26 @@ public class ParkingLotService
         catch (Exception ex)
         {
             return new ResponseEntity("Failure - Exception at parkingLots/getParkingLotsByCompanyId", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity updateParkingLot(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            ParkingLot lotToUpdate = mapper.readValue(requestDto, ParkingLot.class);
+            ParkingLot updatedLot = parkingLotRepository.updateParkingLot(lotToUpdate);
+
+            if(updatedLot != null){
+                return new ResponseEntity(updatedLot, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at parkingLots/updateParkingLot", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        catch(Exception e){
+            return new ResponseEntity("Failure - Exception at parkingLots/updateParkingLot", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

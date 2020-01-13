@@ -60,4 +60,11 @@ public class ParkingLotController
     {
         return parkingLotService.getParkingLotsByCompanyId(requestDto);
     }
+
+    @RequestMapping(value="updateParkingLot", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity updateParkingLot(@RequestBody String requestDto)
+    {
+        return parkingLotService.updateParkingLot(requestDto);
+    }
 }

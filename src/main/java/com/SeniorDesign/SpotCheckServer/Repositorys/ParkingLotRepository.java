@@ -20,7 +20,7 @@ public interface ParkingLotRepository
 
      int getOpenParkingSpotsByLotId(ParkingSpot spot);
 
-     void updateParkingLot(ParkingLot lot);
+     ParkingLot updateParkingLot(ParkingLot lot);
 
      void updateOpenParking(int lotId, int change);
 

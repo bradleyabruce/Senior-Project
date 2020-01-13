@@ -103,9 +103,28 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     }
 
     @Override
-    public void updateParkingLot(ParkingLot lot)
+    public ParkingLot updateParkingLot(ParkingLot lot)
     {
+        String sql = "";
 
+            try
+            {
+                sql = "Update tParkingLot Set Address ='" + lot.getAddress() + "', City = '" + lot.getCity() + "', State = '" + lot.getState() + "', ZipCode = '" + lot.getZipCode() + "', LotName = '" + lot.getLotName() + "' WHERE LotID = " + lot.getLotId() + ";";
+                jdbctemplate.update(sql);
+
+                sql = GET_PARKING_LOTS + " WHERE LotID = ?";
+                List<ParkingLot> updatedLots = (List<ParkingLot>) jdbctemplate.query(sql, parkingLotMapper, lot.getLotId());
+                if(updatedLots.size() == 1)
+                {
+                    return updatedLots.get(0);
+                }
+                else{
+                    return null;
+                }
+            }
+            catch (Exception e){
+                return null;
+            }
     }
 
     @Override
