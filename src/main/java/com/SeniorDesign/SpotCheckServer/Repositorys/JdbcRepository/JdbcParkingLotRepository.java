@@ -168,4 +168,26 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
             return null;
         }
     }
+
+    @Override
+    public ParkingLot fill(int lotID)
+    {
+        String sql = GET_PARKING_LOTS;
+        String where = " WHERE LotID = ?";
+        try
+        {
+            List<ParkingLot> matchingLots = jdbctemplate.query(sql + where, parkingLotMapper, lotID);
+            if(matchingLots.size() == 1)
+            {
+                return matchingLots.get(0);
+            }
+            else{
+                return null;
+            }
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
+
 }

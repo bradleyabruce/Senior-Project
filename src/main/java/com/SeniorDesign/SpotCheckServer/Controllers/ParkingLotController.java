@@ -67,4 +67,11 @@ public class ParkingLotController
     {
         return parkingLotService.updateParkingLot(requestDto);
     }
+
+    @RequestMapping(value="fill", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity fill(@RequestBody String requestDto)
+    {
+        return parkingLotService.fill(requestDto);
+    }
 }

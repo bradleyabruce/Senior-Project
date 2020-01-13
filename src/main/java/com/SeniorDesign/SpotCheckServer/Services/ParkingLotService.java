@@ -115,4 +115,25 @@ public class ParkingLotService
             return new ResponseEntity("Failure - Exception at parkingLots/updateParkingLot", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    public ResponseEntity fill(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            int lotID = mapper.readValue(requestDto, int.class);
+            ParkingLot filledLot = parkingLotRepository.fill(lotID);
+
+            if(filledLot != null)
+            {
+                return new ResponseEntity(filledLot, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at parkingLots/fill.", HttpStatus.CONFLICT);
+            }
+        }
+        catch(Exception e){
+            return new ResponseEntity("Failure - Exception at parkingLots/fill.", HttpStatus.CONFLICT);
+        }
+    }
 }

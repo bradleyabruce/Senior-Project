@@ -27,4 +27,6 @@ public interface ParkingLotRepository
      void insertLotUsage(ParkingSpot spot);
 
      public List<ParkingLot> getParkingLotsByCompanyId(int CompanyID);
+
+     ParkingLot fill(int lotID);
 }
