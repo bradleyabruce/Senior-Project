@@ -109,11 +109,11 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
 
             try
             {
-                sql = "Update tParkingLot Set Address ='" + lot.getAddress() + "', City = '" + lot.getCity() + "', State = '" + lot.getState() + "', ZipCode = '" + lot.getZipCode() + "', LotName = '" + lot.getLotName() + "' WHERE LotID = " + lot.getLotId() + ";";
+                sql = "Update tParkingLot Set Address ='" + lot.getAddress() + "', City = '" + lot.getCity() + "', State = '" + lot.getState() + "', ZipCode = '" + lot.getZipCode() + "', LotName = '" + lot.getLotName() + "' WHERE LotID = " + lot.getLotID() + ";";
                 jdbctemplate.update(sql);
 
                 sql = GET_PARKING_LOTS + " WHERE LotID = ?";
-                List<ParkingLot> updatedLots = (List<ParkingLot>) jdbctemplate.query(sql, parkingLotMapper, lot.getLotId());
+                List<ParkingLot> updatedLots = (List<ParkingLot>) jdbctemplate.query(sql, parkingLotMapper, lot.getLotID());
                 if(updatedLots.size() == 1)
                 {
                     return updatedLots.get(0);

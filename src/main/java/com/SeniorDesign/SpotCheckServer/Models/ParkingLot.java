@@ -19,11 +19,11 @@ public class ParkingLot {
     private int TotalSpots;
 
 
-    public Long getLotId() {
+    public Long getLotID() {
         return lotId;
     }
 
-    public void setLotId(Long lotId) {
+    public void setLotID(Long lotId) {
         this.lotId = lotId;
     }
 
@@ -83,11 +83,11 @@ public class ParkingLot {
         this.lon = lon;
     }
 
-    public int getCompanyId() {
+    public int getCompanyID() {
         return CompanyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyID(int companyId) {
         CompanyId = companyId;
     }
 
