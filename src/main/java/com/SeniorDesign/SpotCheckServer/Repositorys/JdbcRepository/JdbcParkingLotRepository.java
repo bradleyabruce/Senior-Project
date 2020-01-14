@@ -1,6 +1,7 @@
 package com.SeniorDesign.SpotCheckServer.Repositorys.JdbcRepository;
 
 import com.SeniorDesign.SpotCheckServer.Models.*;
+import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.DeviceMapper;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.OpenSpotMapper;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.ParkingLotMapper;
 import com.SeniorDesign.SpotCheckServer.Repositorys.ParkingLotRepository;
@@ -26,6 +27,9 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     ParkingLotMapper parkingLotMapper;
     @Autowired
     OpenSpotMapper openSpotMapper;
+    @Autowired
+    DeviceMapper deviceMapper;
+
 
     private final String  GET_PARKING_LOTS = "SELECT lot.LotID, lot.Address, lot.ZipCode, lot.City, lot.State, lot.LotName, lot.CompanyID, lot.OpenSpots, lot.TotalSpots, lotCoord.Latitude, lotCoord.Longitude, lotCoord.Coordinates FROM tParkingLot lot LEFT JOIN tParkingLotCoordinates lotCoord ON lot.LotID = lotCoord.ParkingLotID";
     private final String GET_OPEN_SPOTS_BY_LOT_ID = "select OpenSpots from tParkingLot where LotId = ?";
@@ -190,4 +194,22 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
         }
     }
 
+    @Override
+    public List<Device> getCamerasDeployedAtParkingLot(ParkingLot lot)
+    {
+        String select = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.IsDeployed, d.ParkingLotID";
+        String from = " FROM tDevice d";
+        String join = " LEFT JOIN tParkingLot pl on (d.ParkingLotID = pl.LotID)";
+        String where = " WHERE d.CompanyID = ? AND d.IsDeployed = 1 AND pl.LotID = ?";
+        String sql = select + from + join + where;
+
+        try
+        {
+            List<Device> deployedCameras = jdbctemplate.query(sql, deviceMapper, lot.getCompanyID(), lot.getLotID());
+            return deployedCameras;
+        }
+        catch(Exception e) {
+            return null;
+        }
+    }
 }

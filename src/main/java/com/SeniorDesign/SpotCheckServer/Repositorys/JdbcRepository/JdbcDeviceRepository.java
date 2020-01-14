@@ -32,7 +32,7 @@ public class JdbcDeviceRepository implements DeviceRepository
     {
         try
         {
-            final String GET_DEVICES = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage FROM tDevice d";
+            final String GET_DEVICES = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.isDeployed FROM tDevice d";
             List<Device> devices = jdbcTemplate.query(GET_DEVICES, deviceMapper);
             return devices;
         }
@@ -88,7 +88,7 @@ public class JdbcDeviceRepository implements DeviceRepository
             parameters.put("ExternalIpAddress", device.getExternalIpAddress());
             parameters.put("MacAddress", device.getMacAddress());
             parameters.put("LastUpdateDate", dateString);
-            parameters.put("CompanyID", device.getCompanyId());
+            parameters.put("CompanyID", device.getCompanyID());
             parameters.put("TakeNewImage", device.getTakeNewImage());
 
             Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));

@@ -29,4 +29,6 @@ public interface ParkingLotRepository
      public List<ParkingLot> getParkingLotsByCompanyId(int CompanyID);
 
      ParkingLot fill(int lotID);
+
+     List<Device> getCamerasDeployedAtParkingLot(ParkingLot lot);
 }

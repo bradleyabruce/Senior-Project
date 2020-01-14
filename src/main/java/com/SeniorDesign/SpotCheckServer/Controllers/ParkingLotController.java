@@ -74,4 +74,11 @@ public class ParkingLotController
     {
         return parkingLotService.fill(requestDto);
     }
+
+    @RequestMapping(value="getCamerasDeployedAtParkingLot", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity getCamerasDeployedAtParkingLot(@RequestBody String requestDto)
+    {
+        return parkingLotService.getCamerasDeployedAtParkingLot(requestDto);
+    }
 }

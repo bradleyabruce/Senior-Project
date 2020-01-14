@@ -136,4 +136,31 @@ public class ParkingLotService
             return new ResponseEntity("Failure - Exception at parkingLots/fill.", HttpStatus.CONFLICT);
         }
     }
+
+    public ResponseEntity getCamerasDeployedAtParkingLot(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            ParkingLot lot = mapper.readValue(requestDto, ParkingLot.class);
+            List<Device> devicesDeployedAtParkingLot = parkingLotRepository.getCamerasDeployedAtParkingLot(lot);
+
+            if(devicesDeployedAtParkingLot != null)
+            {
+                if(devicesDeployedAtParkingLot.size() > 0)
+                {
+                    return new ResponseEntity(devicesDeployedAtParkingLot, HttpStatus.OK);
+                }
+                else{
+                    return new ResponseEntity("No deployed devices found", HttpStatus.CONFLICT);
+                }
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at parkingLot/getCamerasDeployedAtParkingLot", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        catch(Exception e){
+            return new ResponseEntity("Failure - Exception at parkingLot/getCamerasDeployedAtParkingLot", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
