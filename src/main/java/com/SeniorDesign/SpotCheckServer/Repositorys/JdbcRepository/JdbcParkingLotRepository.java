@@ -212,4 +212,32 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
             return null;
         }
     }
+
+    @Override
+    public Boolean delete(ParkingLot lot)
+    {
+        //determine if we can delete
+        String select =  "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.IsDeployed, d.ParkingLotID";
+        String from = " FROM tDevice d";
+        String where = " WHERE d.ParkingLotID = ?";
+        String sql = select + from + where;
+
+        try
+        {
+            List<Device> camerasDeployedToLot = jdbctemplate.query(sql, deviceMapper, lot.getLotID());
+            if(camerasDeployedToLot.size() < 1)
+            {
+                String delete = "DELETE FROM tParkingLot WHERE LotID = ?";
+                int rows = jdbctemplate.update(delete, lot.getLotID());
+                return true;
+            }
+            else{
+                //return false only if cameras still exist
+                return false;
+            }
+        }
+        catch(Exception ex) {
+            return null;
+        }
+    }
 }

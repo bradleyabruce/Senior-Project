@@ -163,4 +163,31 @@ public class ParkingLotService
             return new ResponseEntity("Failure - Exception at parkingLot/getCamerasDeployedAtParkingLot", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    public ResponseEntity delete(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            ParkingLot lot = mapper.readValue(requestDto, ParkingLot.class);
+            Boolean deleteResult = parkingLotRepository.delete(lot);
+
+            if(deleteResult != null)
+            {
+                if(deleteResult)
+                {
+                    return new ResponseEntity(true, HttpStatus.OK);
+                }
+                else{
+                    return new ResponseEntity("Devices still deployed to parking lot.", HttpStatus.CONFLICT);
+                }
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at parkingLot/delete", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        catch(Exception ex){
+            return new ResponseEntity("Failure - Exception at parkingLot/delete", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

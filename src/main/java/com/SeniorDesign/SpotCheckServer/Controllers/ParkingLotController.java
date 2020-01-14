@@ -81,4 +81,11 @@ public class ParkingLotController
     {
         return parkingLotService.getCamerasDeployedAtParkingLot(requestDto);
     }
+
+    @RequestMapping(value="delete", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity delete(@RequestBody String requestDto)
+    {
+        return parkingLotService.delete(requestDto);
+    }
 }

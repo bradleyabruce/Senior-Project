@@ -31,4 +31,6 @@ public interface ParkingLotRepository
      ParkingLot fill(int lotID);
 
      List<Device> getCamerasDeployedAtParkingLot(ParkingLot lot);
+
+     Boolean delete(ParkingLot lot);
 }
