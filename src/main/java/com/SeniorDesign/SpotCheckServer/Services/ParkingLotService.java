@@ -152,7 +152,7 @@ public class ParkingLotService
                     return new ResponseEntity(devicesDeployedAtParkingLot, HttpStatus.OK);
                 }
                 else{
-                    return new ResponseEntity("No deployed devices found", HttpStatus.CONFLICT);
+                    return new ResponseEntity("Failure - No deployed devices found", HttpStatus.CONFLICT);
                 }
             }
             else{
@@ -179,7 +179,7 @@ public class ParkingLotService
                     return new ResponseEntity(true, HttpStatus.OK);
                 }
                 else{
-                    return new ResponseEntity("Devices still deployed to parking lot.", HttpStatus.CONFLICT);
+                    return new ResponseEntity("Failure - Devices still deployed to parking lot.", HttpStatus.CONFLICT);
                 }
             }
             else{
