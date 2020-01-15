@@ -78,7 +78,7 @@ public class ParkingLotService
 
             if(list != null)
             {
-                if(list.size() > 1)
+                if(list.size() > 0)
                 {
                     return new ResponseEntity(list, HttpStatus.OK);
                 }
