@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Component
 public class ParkingLot {
-    private Long lotId;
+    private int lotId;
     private String lotName;
     private String address;
     private int zipCode;
@@ -19,11 +19,11 @@ public class ParkingLot {
     private int TotalSpots;
 
 
-    public Long getLotID() {
+    public int getLotID() {
         return lotId;
     }
 
-    public void setLotID(Long lotId) {
+    public void setLotID(int lotId) {
         this.lotId = lotId;
     }
 

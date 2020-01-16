@@ -3,6 +3,7 @@ package com.SeniorDesign.SpotCheckServer.Controllers;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLots;
 import com.SeniorDesign.SpotCheckServer.Services.ParkingLotService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,5 +88,12 @@ public class ParkingLotController
     public ResponseEntity delete(@RequestBody String requestDto)
     {
         return parkingLotService.delete(requestDto);
+    }
+
+    @RequestMapping(value="create", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity create(@RequestBody String requestDto)
+    {
+        return parkingLotService.create(requestDto);
     }
 }

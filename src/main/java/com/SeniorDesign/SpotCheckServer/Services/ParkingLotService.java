@@ -190,4 +190,25 @@ public class ParkingLotService
             return new ResponseEntity("Failure - Exception at parkingLot/delete", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    public ResponseEntity create(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            ParkingLot lot = mapper.readValue(requestDto, ParkingLot.class);
+            ParkingLot newLot = parkingLotRepository.create(lot);
+
+            if(newLot != null)
+            {
+                return new ResponseEntity(newLot, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at parkingLot/create", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        catch(Exception ex){
+            return new ResponseEntity("Failure - Exception at parkingLot/create", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

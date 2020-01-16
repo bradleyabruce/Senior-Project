@@ -10,9 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class JdbcParkingLotRepository implements ParkingLotRepository
@@ -237,6 +242,38 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
             }
         }
         catch(Exception ex) {
+            return null;
+        }
+    }
+
+    @Override
+    public ParkingLot create(ParkingLot lot)
+    {
+        try
+        {
+            SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbctemplate);
+            jdbcInsert.withTableName("tParkingLot").usingGeneratedKeyColumns("LotID");
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("LotName", lot.getLotName());
+            parameters.put("Address", lot.getAddress());
+            parameters.put("City", lot.getCity());
+            parameters.put("State", lot.getState());
+            parameters.put("ZipCode", lot.getZipCode());
+            parameters.put("CompanyID", lot.getCompanyID());
+            parameters.put("OpenSpots", 0);
+            parameters.put("TotalSpots", 0);
+
+            Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+            int newParkingLotID = ((Number) key).intValue();
+            lot.setLotID(newParkingLotID);
+
+            return lot;
+        }
+
+        catch(Exception ex)
+        {
+            //System.out.println(ex.getMessage());
             return null;
         }
     }
