@@ -202,10 +202,10 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     @Override
     public List<Device> getCamerasDeployedAtParkingLot(ParkingLot lot)
     {
-        String select = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.IsDeployed, d.ParkingLotID";
+        String select = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.deviceStatusID, d.ParkingLotID";
         String from = " FROM tDevice d";
         String join = " LEFT JOIN tParkingLot pl on (d.ParkingLotID = pl.LotID)";
-        String where = " WHERE d.CompanyID = ? AND d.IsDeployed = 1 AND pl.LotID = ?";
+        String where = " WHERE d.CompanyID = ? AND d.DeviceStatusID IN (5,4) AND pl.LotID = ?";
         String sql = select + from + join + where;
 
         try
