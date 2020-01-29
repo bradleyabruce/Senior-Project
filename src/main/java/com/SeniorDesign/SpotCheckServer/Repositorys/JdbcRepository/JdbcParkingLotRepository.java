@@ -232,8 +232,12 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
             List<Device> camerasDeployedToLot = jdbctemplate.query(sql, deviceMapper, lot.getLotID());
             if(camerasDeployedToLot.size() < 1)
             {
-                String delete = "DELETE FROM tParkingLot WHERE LotID = ?";
-                int rows = jdbctemplate.update(delete, lot.getLotID());
+                String deleteFromtParkingLot = "DELETE FROM tParkingLot WHERE LotID = ?";
+                int parkingLotRows = jdbctemplate.update(deleteFromtParkingLot, lot.getLotID());
+
+                String deleteFromtParkingLotCoordinates = "DELETE FROM tParkingLotCoordinates WHERE ParkingLotID = ?";
+                int parkingLotCoordinateRows = jdbctemplate.update(deleteFromtParkingLotCoordinates, lot.getLotID());
+
                 return true;
             }
             else{

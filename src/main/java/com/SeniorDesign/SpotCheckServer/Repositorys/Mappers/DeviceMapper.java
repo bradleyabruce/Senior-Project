@@ -12,7 +12,7 @@ public class DeviceMapper implements RowMapper<Device>
     @Override
     public Device mapRow(ResultSet resultSet, int i) throws SQLException {
         Device device = new Device();
-        device.setDeviceId(resultSet.getLong("DeviceID"));
+        device.setDeviceID(resultSet.getInt("DeviceID"));
         device.setDeviceName(resultSet.getString("DeviceName"));
         device.setLocalIpAddress(resultSet.getString("LocalIpAddress"));
         device.setExternalIpAddress(resultSet.getString("ExternalIpAddress"));
@@ -20,7 +20,7 @@ public class DeviceMapper implements RowMapper<Device>
         device.setLastUpdateDate(resultSet.getDate("LastUpdateDate"));
         device.setCompanyID(resultSet.getInt("CompanyID"));
         device.setTakeNewImage(resultSet.getBoolean("TakeNewImage"));
-        device.setIsDeployed(resultSet.getBoolean("IsDeployed"));
+        device.setDeviceStatusID(resultSet.getInt("DeviceStatusID"));
         device.setParkingLotID(resultSet.getInt("ParkingLotID"));
         return device;
     }

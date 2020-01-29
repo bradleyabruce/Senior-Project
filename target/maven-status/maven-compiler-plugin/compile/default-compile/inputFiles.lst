@@ -17,6 +17,7 @@
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/UserRepository.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcParkingSpotRepository.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/ParkingLots.java
+/Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Enums/eDeviceStatusID.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Services/UserService.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Repositorys/ParkingLotRepository.java
 /Volumes/SeagateHDD/Projects/SeniorProject/SpotCheckServer/src/main/java/com/SeniorDesign/SpotCheckServer/Models/Company.java

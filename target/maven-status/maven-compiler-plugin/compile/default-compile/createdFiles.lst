@@ -35,4 +35,5 @@ com/SeniorDesign/SpotCheckServer/Services/UserService.class
 com/SeniorDesign/SpotCheckServer/Repositorys/ParkingSpotRepository.class
 com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcUserRepository.class
 com/SeniorDesign/SpotCheckServer/Controllers/DeviceController.class
+com/SeniorDesign/SpotCheckServer/Enums/eDeviceStatusID.class
 com/SeniorDesign/SpotCheckServer/Repositorys/JdbcRepository/JdbcParkingLotRepository.class

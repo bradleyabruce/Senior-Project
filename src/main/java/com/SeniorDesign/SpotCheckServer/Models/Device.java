@@ -7,19 +7,19 @@ import java.util.Date;
 @Component
 public class Device
 {
-    private Long DeviceId;
+    private Integer DeviceID;
     private String DeviceName;
     private String LocalIpAddress;
     private String ExternalIpAddress;
     private String MacAddress;
     private Date LastUpdateDate;
-    private int CompanyId;
-    private boolean TakeNewImage;
-    private boolean IsDeployed;
-    private int ParkingLotID;
+    private Integer CompanyID;
+    private Boolean TakeNewImage;
+    private Integer DeviceStatusID;
+    private Integer ParkingLotID;
 
-    public long getDeviceID() { return DeviceId; }
-    public void setDeviceId(Long deviceId) { this.DeviceId = deviceId; }
+    public Integer getDeviceID() { return DeviceID; }
+    public void setDeviceID(Integer deviceID) { this.DeviceID = deviceID; }
 
     public String getDeviceName() { return DeviceName; }
     public void setDeviceName(String deviceName) { this.DeviceName = deviceName; }
@@ -38,15 +38,15 @@ public class Device
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public void setLastUpdateDate(Date lastUpdateDate){ this.LastUpdateDate = lastUpdateDate; }
 
-    public int getCompanyID(){ return CompanyId; }
-    public void setCompanyID(int companyId){ this.CompanyId = companyId; }
+    public Integer getCompanyID(){ return CompanyID; }
+    public void setCompanyID(Integer companyId){ this.CompanyID = companyId; }
 
-    public boolean getTakeNewImage(){return TakeNewImage; }
-    public void setTakeNewImage(boolean takeNewImage){ this.TakeNewImage = takeNewImage; }
+    public Boolean getTakeNewImage(){return TakeNewImage; }
+    public void setTakeNewImage(Boolean takeNewImage){ this.TakeNewImage = takeNewImage; }
 
-    public boolean getIsDeployed(){ return IsDeployed; }
-    public void setIsDeployed(boolean isDeployed){ this.IsDeployed = isDeployed; }
+    public Integer getDeviceStatusID(){ return DeviceStatusID; }
+    public void setDeviceStatusID(Integer deviceStatusID){ this.DeviceStatusID = deviceStatusID; }
 
-    public int getParkingLotID(){ return this.ParkingLotID; }
-    public void setParkingLotID(int parkingLotID){ this.ParkingLotID = parkingLotID;}
+    public Integer getParkingLotID(){ return this.ParkingLotID; }
+    public void setParkingLotID(Integer parkingLotID){ this.ParkingLotID = parkingLotID;}
 }
