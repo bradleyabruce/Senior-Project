@@ -63,4 +63,12 @@ public class DeviceController
         ResponseEntity assignResult = deviceService.adminPortalAssignDevice(requestDto);
         return assignResult;
     }
+
+    @RequestMapping(value = "updateAndReturn", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity updateAndReturn(@RequestBody String requestDto)
+    {
+        ResponseEntity updateDevice = deviceService.updateAndReturn(requestDto);
+        return updateDevice;
+    }
 }

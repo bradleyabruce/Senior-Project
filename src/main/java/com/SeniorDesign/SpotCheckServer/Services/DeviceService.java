@@ -154,4 +154,31 @@ public class DeviceService
             return new ResponseEntity("Failure - Exception at device/fill.", HttpStatus.CONFLICT);
         }
     }
+
+    public ResponseEntity updateAndReturn(String requestDto)
+    {
+        //Mapper used to serialize json from api request into object
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
+        try
+        {
+            Device device = mapper.readValue(requestDto, Device.class);
+            Device updateDevice = deviceRepository.updateAndReturn(device);
+
+            if(updateDevice != null)
+            {
+                return new ResponseEntity(updateDevice, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity("Failure - Exception at device/updateAndReturn", HttpStatus.CONFLICT);
+            }
+        }
+        catch (Exception ex)
+        {
+            log.error("Error processing update device");
+            log.error(ex.getLocalizedMessage());
+            return new ResponseEntity("Failure = Exception at device/updateAndReturn", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

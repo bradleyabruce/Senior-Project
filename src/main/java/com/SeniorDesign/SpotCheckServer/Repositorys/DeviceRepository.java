@@ -21,4 +21,6 @@ public interface DeviceRepository
     public Device adminPortalAssignDevice(Device device);
 
     public Device fill(int deviceID);
+
+    public Device updateAndReturn(Device device);
  }

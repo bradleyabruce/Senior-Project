@@ -5,16 +5,11 @@ import com.SeniorDesign.SpotCheckServer.Models.Device;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.DeviceRepository;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.DeviceMapper;
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
-
-import javax.xml.bind.annotation.XmlType;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -187,6 +182,33 @@ public class JdbcDeviceRepository implements DeviceRepository
             }
         }
         catch(Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public Device updateAndReturn(Device device)
+    {
+        Boolean updateResult = updateDevice(device);
+        if(updateResult)
+        {
+            String sql = GET_DEVICES + " WHERE DeviceID = ?";
+            try
+            {
+                List<Device> matchingDevices = jdbcTemplate.query(sql, deviceMapper, device.getDeviceID());
+                if(matchingDevices.size() == 1)
+                {
+                    return matchingDevices.get(0);
+                }
+                else{
+                    return null;
+                }
+            }
+            catch(Exception e){
+                return null;
+            }
+        }
+        else{   //update failed
             return null;
         }
     }
