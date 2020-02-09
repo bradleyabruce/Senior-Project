@@ -1,6 +1,8 @@
 package com.SeniorDesign.SpotCheckServer.Repositorys.JdbcRepository;
 
+import com.SeniorDesign.SpotCheckServer.Enums.eDeviceStatusID;
 import com.SeniorDesign.SpotCheckServer.Models.Device;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.DeviceRepository;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.DeviceMapper;
 import com.fasterxml.jackson.databind.ser.std.StdKeySerializers;
@@ -31,13 +33,13 @@ public class JdbcDeviceRepository implements DeviceRepository
 
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private final String GET_DEVICES_BY_ID = "";
+    final String GET_DEVICES = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.deviceStatusID, d.ParkingLotID FROM tDevice d";
 
     @Override
     public List<Device> getDevices()
     {
         try
         {
-            final String GET_DEVICES = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.deviceStatusID, d.ParkingLotID FROM tDevice d";
             List<Device> devices = jdbcTemplate.query(GET_DEVICES, deviceMapper);
             return devices;
         }
@@ -59,11 +61,12 @@ public class JdbcDeviceRepository implements DeviceRepository
             String dateString = dateFormat.format(currentDate);
 
             String sql = "UPDATE tDevice SET ";
+            if(device.getDeviceName() != null){ sql += "DeviceName = '" + device.getDeviceName() + "', "; }
             if(device.getLocalIpAddress() != null){ sql += "LocalIpAddress = '" + device.getLocalIpAddress() + "', "; }
             if(device.getExternalIpAddress() != null){ sql += "ExternalIpAddress = '" + device.getExternalIpAddress() + "', "; }
             sql += "LastUpdateDate = '" + dateString + "', ";
             if(device.getCompanyID() != null){ sql += "CompanyID = '" + device.getCompanyID() + "', "; }
-            if(device.getTakeNewImage() != null){ sql+= "TakeNewImage = '" + device.getTakeNewImage() + "' "; }
+            if(device.getTakeNewImage() != null){ sql+= "TakeNewImage = '" + device.getTakeNewImage() + "', "; }
             if(device.getDeviceStatusID() != null){ sql += "DeviceStatusID = '" + device.getDeviceStatusID() + "', "; }
             if(device.getParkingLotID() != null){ sql += "ParkingLotID = '" + device.getParkingLotID() + "', "; }
             sql = sql.substring(0, sql.length() - 2);
@@ -124,11 +127,66 @@ public class JdbcDeviceRepository implements DeviceRepository
     {
         try
         {
-            String sql = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.deviceStatusID, d.ParkingLotID FROM tDevice d WHERE d.CompanyID = ?";
+            String sql = GET_DEVICES + " WHERE d.CompanyID = ?";
             List<Device> matchingDevices = jdbcTemplate.query(sql, deviceMapper, companyID);
             return matchingDevices;
         }
         catch(Exception ex){
+            return null;
+        }
+    }
+
+    @Override
+    public Device adminPortalAssignDevice(Device device)
+    {
+        try
+        {
+            //find device that is not currently assigned to other companies
+            String sql = "SELECT TOP 1 d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.deviceStatusID, d.ParkingLotID FROM tDevice d WHERE d.CompanyID IS NULL";
+            List<Device> unassignedDevices = jdbcTemplate.query(sql, deviceMapper);
+
+            if(unassignedDevices.size() > 0)
+            {
+                //update this device with the device info sent to this method
+                Device deviceToUpdate = unassignedDevices.get(0);
+                deviceToUpdate.setCompanyID(device.getCompanyID());
+                deviceToUpdate.setDeviceName(device.getDeviceName());
+                deviceToUpdate.setDeviceStatusID(eDeviceStatusID.Undeployed.deviceStatusID);
+
+                Boolean updateResult = updateDevice(deviceToUpdate);
+                if(updateResult)
+                {
+                    //return device with new information set
+                    return fill(deviceToUpdate.getDeviceID());
+                }
+                else{   //update failed
+                    return null;
+                }
+            }
+            else{
+                return null;
+            }
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
+
+    @Override
+    public Device fill(int deviceID) {
+        String sql = GET_DEVICES + " WHERE DeviceID = ?";
+        try
+        {
+            List<Device> matchingDevices = jdbcTemplate.query(sql, deviceMapper, deviceID);
+            if(matchingDevices.size() == 1)
+            {
+                return matchingDevices.get(0);
+            }
+            else{
+                return null;
+            }
+        }
+        catch(Exception e){
             return null;
         }
     }

@@ -2,6 +2,7 @@ package com.SeniorDesign.SpotCheckServer.Services;
 
 import com.SeniorDesign.SpotCheckServer.Controllers.DeviceController;
 import com.SeniorDesign.SpotCheckServer.Models.Device;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.DeviceRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -109,6 +110,48 @@ public class DeviceService
             log.error("Error processing create device");
             log.error(ex.getLocalizedMessage());
             return new ResponseEntity("Exception Failure\nCreate Device\n" + ex.getLocalizedMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity adminPortalAssignDevice(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            Device device = mapper.readValue(requestDto, Device.class);
+            Device newDevice = deviceRepository.adminPortalAssignDevice(device);
+
+            if(newDevice != null)
+            {
+                return new ResponseEntity(newDevice, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at device/adminPortalAssignDevice", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        catch(Exception ex){
+            return new ResponseEntity("Failure - Exception at device/adminPortalAssignDevice", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity fill(String requestDto)
+    {
+        try
+        {
+            ObjectMapper mapper = new ObjectMapper();
+            int deviceID = mapper.readValue(requestDto, int.class);
+            Device filledDevice = deviceRepository.fill(deviceID);
+
+            if(filledDevice != null)
+            {
+                return new ResponseEntity(filledDevice, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at device/fill.", HttpStatus.CONFLICT);
+            }
+        }
+        catch(Exception e){
+            return new ResponseEntity("Failure - Exception at device/fill.", HttpStatus.CONFLICT);
         }
     }
 }

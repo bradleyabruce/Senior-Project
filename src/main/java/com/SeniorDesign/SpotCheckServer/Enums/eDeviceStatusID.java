@@ -8,9 +8,9 @@ public enum eDeviceStatusID
     ReadyForSpots (4),
     Deployed (5);
 
-    private final int deviceStatusID;
+    public final int deviceStatusID;
 
-    private eDeviceStatusID(int deviceStatusID)
+    eDeviceStatusID(int deviceStatusID)
     {
         this.deviceStatusID = deviceStatusID;
     }

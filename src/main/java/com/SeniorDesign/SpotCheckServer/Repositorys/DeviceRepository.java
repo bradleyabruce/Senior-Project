@@ -17,4 +17,8 @@ public interface DeviceRepository
     public Integer createDevice(Device device);
 
     public List<Device> getDevicesByCompanyID(int companyID);
+
+    public Device adminPortalAssignDevice(Device device);
+
+    public Device fill(int deviceID);
  }

@@ -48,4 +48,19 @@ public class DeviceController
         return createResult;
     }
 
+    @RequestMapping(value = "fill", method= RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity fill(@RequestBody String requestDto)
+    {
+        ResponseEntity fillResult = deviceService.fill(requestDto);
+        return fillResult;
+    }
+
+    @RequestMapping(value = "adminPortalAssignDevice", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity adminPortalAssignDevice(@RequestBody String requestDto)
+    {
+        ResponseEntity assignResult = deviceService.adminPortalAssignDevice(requestDto);
+        return assignResult;
+    }
 }
