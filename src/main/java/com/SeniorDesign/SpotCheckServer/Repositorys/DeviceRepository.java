@@ -23,4 +23,6 @@ public interface DeviceRepository
     public Device fill(int deviceID);
 
     public Device updateAndReturn(Device device);
+
+    public boolean removeFromCompany(int deviceID);
  }

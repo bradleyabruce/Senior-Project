@@ -71,4 +71,12 @@ public class DeviceController
         ResponseEntity updateDevice = deviceService.updateAndReturn(requestDto);
         return updateDevice;
     }
+
+    @RequestMapping(value = "removeFromCompany", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity removeFromCompany(@RequestBody String requestDto)
+    {
+        ResponseEntity removeResult = deviceService.removeFromCompany(requestDto);
+        return removeResult;
+    }
 }

@@ -178,7 +178,30 @@ public class DeviceService
         {
             log.error("Error processing update device");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure = Exception at device/updateAndReturn", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity("Failure - Exception at device/updateAndReturn", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity removeFromCompany(String requestDto)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try
+        {
+            int deviceID = mapper.readValue(requestDto, int.class);
+            boolean deleteResult = deviceRepository.removeFromCompany(deviceID);
+
+            if(deleteResult)
+            {
+                return new ResponseEntity("Success", HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity("Failure - Exception at RemoveFromCompany", HttpStatus.CONFLICT);
+            }
+        }
+        catch (Exception ex)
+        {
+            return new ResponseEntity("Failure - Exception at RemoveFromCompany", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

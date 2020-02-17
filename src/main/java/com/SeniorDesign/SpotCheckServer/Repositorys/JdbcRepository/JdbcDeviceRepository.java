@@ -214,6 +214,42 @@ public class JdbcDeviceRepository implements DeviceRepository
     }
 
     @Override
+    public boolean removeFromCompany(int deviceID)
+    {
+        try
+        {
+            Date currentDate = new Date();
+            String dateString = dateFormat.format(currentDate);
+
+            String sql = "UPDATE tDevice SET ";
+            sql += "DeviceName = 'Camera', ";
+            sql += "DeviceStatusID = '" + eDeviceStatusID.NoCompany.deviceStatusID + "', ";
+            sql += "CompanyID = null, ";
+            sql += "LocalIpAddress = 'Unset', ";
+            sql += "ExternalIpAddress = 'Unset', ";
+            sql += "LastUpdateDate = '" + dateString + "', ";
+            sql += "TakeNewImage = '0', ";
+            sql += "ParkingLotID = null ";
+
+            sql += "WHERE DeviceID = " + deviceID + ";";
+
+            int affectedRows = jdbcTemplate.update(sql);
+            if(affectedRows == 1)
+            {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+    @Override
     public Device getDevice(int deviceId)
     {
         return null;
