@@ -79,4 +79,12 @@ public class DeviceController
         ResponseEntity removeResult = deviceService.removeFromCompany(requestDto);
         return removeResult;
     }
+
+    @RequestMapping(value = "undeploy", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity undeploy(@RequestBody String requestDto)
+    {
+        ResponseEntity undeployResult = deviceService.undeploy(requestDto);
+        return undeployResult;
+    }
 }

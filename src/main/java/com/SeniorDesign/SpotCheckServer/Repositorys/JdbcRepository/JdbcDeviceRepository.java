@@ -2,7 +2,6 @@ package com.SeniorDesign.SpotCheckServer.Repositorys.JdbcRepository;
 
 import com.SeniorDesign.SpotCheckServer.Enums.eDeviceStatusID;
 import com.SeniorDesign.SpotCheckServer.Models.Device;
-import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.DeviceRepository;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.DeviceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -245,6 +245,60 @@ public class JdbcDeviceRepository implements DeviceRepository
 
         catch (Exception ex)
         {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean undeploy(int deviceID)
+    {
+        try
+        {
+            Date currentDate = new Date();
+            String dateString = dateFormat.format(currentDate);
+
+            String sql = "UPDATE tDevice SET ";
+            sql += "LastUpdateDate = '" + dateString + "', ";
+            sql += "TakeNewImage = '0', ";
+            sql += "DeviceStatusID = '" + eDeviceStatusID.Undeployed.deviceStatusID + "', ";
+            sql += "ParkingLotID = null ";
+            sql += "WHERE DeviceID = " + deviceID + ";";
+
+            boolean deviceUpdateResult = jdbcTemplate.update(sql) > 0;
+            if(deviceUpdateResult)
+            {
+                //device was updated, get the spot ids that used that device
+                sql = "SELECT SpotID FROM tSpot WHERE DeviceID = " + deviceID + ";";
+                List<Integer> matchingSpotIDs = jdbcTemplate.queryForList(sql, Integer.class);
+
+                if(matchingSpotIDs.size() > 0)
+                {
+                    sql = "DELETE FROM tSpots WHERE SpotID IN ( " + String.join(",", (CharSequence)matchingSpotIDs) + " );";
+                    boolean deleteSpotResult = jdbcTemplate.update(sql) == matchingSpotIDs.size();
+
+                    //sql = "DELETE FROM tSpotImageCoordinates WHERE SpotID IN ( " + String.join(",", (CharSequence)matchingSpotIDs) + ");";
+                    //boolean deleteCoordinateResult = jdbcTemplate.update(sql) == matchingSpotIDs.size();
+
+                    if(deleteSpotResult)// && deleteCoordinateResult)
+                    {
+                        //deletes where successful
+                        return true;
+                    }
+                    else{
+                        //deletes were not successful
+                        return false;
+                    }
+                }
+                else{
+                    //no spots to remove, return true
+                    return true;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        catch(Exception e){
             return false;
         }
     }

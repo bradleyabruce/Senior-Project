@@ -204,4 +204,27 @@ public class DeviceService
             return new ResponseEntity("Failure - Exception at RemoveFromCompany", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    public ResponseEntity undeploy(String requestDto)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try
+        {
+            int deviceID = mapper.readValue(requestDto, int.class);
+            boolean undeployResult = deviceRepository.undeploy(deviceID);
+
+            if(undeployResult)
+            {
+                return new ResponseEntity("Success", HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Exception as Device/undeploy", HttpStatus.CONFLICT);
+            }
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity("Failure - Exception at Device/undeploy", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

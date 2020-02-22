@@ -25,4 +25,6 @@ public interface DeviceRepository
     public Device updateAndReturn(Device device);
 
     public boolean removeFromCompany(int deviceID);
+
+    public boolean undeploy(int deviceID);
  }
