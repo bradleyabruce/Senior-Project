@@ -247,7 +247,7 @@ public class DeviceService
             encodedByteArray = encodedByteArray.substring(encodedByteArray.indexOf(')') + 1);
 
             String baseDirectory = "spotImages";
-            String deviceDirectory = baseDirectory + "/" + deviceID;
+            String deviceDirectory = baseDirectory + System.getProperty("file.separator") + deviceID;
             File fileDirectory = new File(deviceDirectory);
 
             //if the directory exists, clear it
@@ -256,7 +256,7 @@ public class DeviceService
                 FileUtils.cleanDirectory(fileDirectory);
             }
             //save the image
-            if(SaveImage(fileDirectory, encodedByteArray))
+            if(SaveImageToDirectory(fileDirectory, encodedByteArray))
             {
                 return new ResponseEntity("Success", HttpStatus.OK);
             }
@@ -265,11 +265,13 @@ public class DeviceService
             }
         }
         catch(Exception ex){
+            log.error("Error at  Device/SaveImage");
+            log.error(ex.getLocalizedMessage());
             return new ResponseEntity("Failure - Exception at Device/saveImage", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public boolean SaveImage(File directory, String encodedByteArray)
+    public boolean SaveImageToDirectory(File directory, String encodedByteArray)
     {
         Date currentDate = new Date();
         String dateString = dateFormat.format(currentDate);
@@ -286,6 +288,8 @@ public class DeviceService
             return true;
         }
         catch(Exception ex){
+            log.error("Error at Device/SaveImageToDirectory");
+            log.error(ex.getLocalizedMessage());
             return false;
         }
     }
