@@ -31,7 +31,7 @@ public class DeviceService
     DeviceRepository deviceRepository;
     Logger log = LoggerFactory.getLogger(DeviceService.class);
 
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 
     public ResponseEntity getAllDevices()
     {
@@ -256,22 +256,23 @@ public class DeviceService
                 FileUtils.cleanDirectory(fileDirectory);
             }
             //save the image
-            if(SaveImageToDirectory(fileDirectory, encodedByteArray))
+            String value = SaveImageToDirectory(fileDirectory, encodedByteArray);
+            if(value == "true")
             {
                 return new ResponseEntity("Success", HttpStatus.OK);
             }
             else{
-                return new ResponseEntity("Failure - Failure saving image", HttpStatus.CONFLICT);
+                return new ResponseEntity(value, HttpStatus.CONFLICT);
             }
         }
         catch(Exception ex){
             log.error("Error at  Device/SaveImage");
             log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Exception at Device/saveImage", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity("Failure - Exception at Device/SaveImage", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    public boolean SaveImageToDirectory(File directory, String encodedByteArray)
+    public String SaveImageToDirectory(File directory, String encodedByteArray)
     {
         Date currentDate = new Date();
         String dateString = dateFormat.format(currentDate);
@@ -285,12 +286,13 @@ public class DeviceService
             File imageFile = new File(directory.getPath() + System.getProperty("file.separator") + dateString + ".jpg");
             imageFile.getParentFile().mkdirs();
             ImageIO.write(image, "jpg", imageFile);
-            return true;
+            return "true";
         }
         catch(Exception ex){
             log.error("Error at Device/SaveImageToDirectory");
             log.error(ex.getLocalizedMessage());
-            return false;
+            return ex.getLocalizedMessage();
+            //return false;
         }
     }
 }
