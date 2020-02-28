@@ -5,6 +5,8 @@ import com.SeniorDesign.SpotCheckServer.Models.Device;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.DeviceRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.coyote.Response;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,6 +30,8 @@ public class DeviceService
     @Autowired
     DeviceRepository deviceRepository;
     Logger log = LoggerFactory.getLogger(DeviceService.class);
+
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public ResponseEntity getAllDevices()
     {
@@ -225,6 +236,57 @@ public class DeviceService
         catch(Exception ex)
         {
             return new ResponseEntity("Failure - Exception at Device/undeploy", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity saveImage(String encodedByteArray)
+    {
+        try
+        {
+            String deviceID = encodedByteArray.substring(1, encodedByteArray.indexOf(')'));
+            encodedByteArray = encodedByteArray.substring(encodedByteArray.indexOf(')') + 1);
+
+            String baseDirectory = "spotImages";
+            String deviceDirectory = baseDirectory + "/" + deviceID;
+            File fileDirectory = new File(deviceDirectory);
+
+            //if the directory exists, clear it
+            if (fileDirectory.isDirectory())
+            {
+                FileUtils.cleanDirectory(fileDirectory);
+            }
+            //save the image
+            if(SaveImage(fileDirectory, encodedByteArray))
+            {
+                return new ResponseEntity("Success", HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Failure saving image", HttpStatus.CONFLICT);
+            }
+        }
+        catch(Exception ex){
+            return new ResponseEntity("Failure - Exception at Device/saveImage", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public boolean SaveImage(File directory, String encodedByteArray)
+    {
+        Date currentDate = new Date();
+        String dateString = dateFormat.format(currentDate);
+
+        try
+        {
+            byte[] decodedByteArray = DatatypeConverter.parseBase64Binary(encodedByteArray);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(decodedByteArray);
+            BufferedImage image = ImageIO.read(inputStream);
+
+            File imageFile = new File(directory.getPath() + System.getProperty("file.separator") + dateString + ".jpg");
+            imageFile.getParentFile().mkdirs();
+            ImageIO.write(image, "jpg", imageFile);
+            return true;
+        }
+        catch(Exception ex){
+            return false;
         }
     }
 }

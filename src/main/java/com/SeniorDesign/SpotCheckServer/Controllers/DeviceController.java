@@ -87,4 +87,19 @@ public class DeviceController
         ResponseEntity undeployResult = deviceService.undeploy(requestDto);
         return undeployResult;
     }
+
+    @RequestMapping(value = "saveImage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity saveImage(@RequestBody String encodedByteArray)
+    {
+        ResponseEntity saveResult = deviceService.saveImage(encodedByteArray);
+        return saveResult;
+    }
+
+    /*@RequestMapping(value = "getImage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity getImage(@RequestBody String requestDto)
+    {
+        ResponseEntity
+    }*/
 }
