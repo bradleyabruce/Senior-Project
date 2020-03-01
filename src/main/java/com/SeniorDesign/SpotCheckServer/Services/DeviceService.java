@@ -239,60 +239,17 @@ public class DeviceService
         }
     }
 
-    public ResponseEntity saveImage(String encodedByteArray)
-    {
-        try
-        {
-            String deviceID = encodedByteArray.substring(1, encodedByteArray.indexOf(')'));
-            encodedByteArray = encodedByteArray.substring(encodedByteArray.indexOf(')') + 1);
+    public ResponseEntity saveImage(String encodedByteArray) {
+        try {
+            boolean saveResult = deviceRepository.saveImage(encodedByteArray);
 
-            String baseDirectory = "spotImages";
-            String deviceDirectory = baseDirectory + System.getProperty("file.separator") + deviceID;
-            File fileDirectory = new File(deviceDirectory);
-
-            //if the directory exists, clear it
-            if (fileDirectory.isDirectory())
-            {
-                FileUtils.cleanDirectory(fileDirectory);
-            }
-            //save the image
-            String value = SaveImageToDirectory(fileDirectory, encodedByteArray);
-            if(value == "true")
-            {
+            if (saveResult) {
                 return new ResponseEntity("Success", HttpStatus.OK);
+            } else {
+                return new ResponseEntity("Failure - Exception as Device/saveImage", HttpStatus.CONFLICT);
             }
-            else{
-                return new ResponseEntity(value, HttpStatus.CONFLICT);
-            }
-        }
-        catch(Exception ex){
-            log.error("Error at  Device/SaveImage");
-            log.error(ex.getLocalizedMessage());
-            return new ResponseEntity("Failure - Exception at Device/SaveImage", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    public String SaveImageToDirectory(File directory, String encodedByteArray)
-    {
-        Date currentDate = new Date();
-        String dateString = dateFormat.format(currentDate);
-
-        try
-        {
-            byte[] decodedByteArray = DatatypeConverter.parseBase64Binary(encodedByteArray);
-            ByteArrayInputStream inputStream = new ByteArrayInputStream(decodedByteArray);
-            BufferedImage image = ImageIO.read(inputStream);
-
-            File imageFile = new File(directory.getPath() + System.getProperty("file.separator") + dateString + ".jpg");
-            imageFile.getParentFile().mkdirs();
-            ImageIO.write(image, "jpg", imageFile);
-            return "true";
-        }
-        catch(Exception ex){
-            log.error("Error at Device/SaveImageToDirectory");
-            log.error(ex.getLocalizedMessage());
-            return ex.getLocalizedMessage();
-            //return false;
+        } catch (Exception ex) {
+            return new ResponseEntity("Failure - Exception at Device/saveImage", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

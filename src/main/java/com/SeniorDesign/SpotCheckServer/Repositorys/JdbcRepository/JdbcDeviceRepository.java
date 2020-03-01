@@ -273,11 +273,8 @@ public class JdbcDeviceRepository implements DeviceRepository
 
                 if(matchingSpotIDs.size() > 0)
                 {
-                    sql = "DELETE FROM tSpots WHERE SpotID IN ( " + String.join(",", (CharSequence)matchingSpotIDs) + " );";
+                    sql = "DELETE FROM tSpots WHERE SpotID IN ( " + CreateCommaSeparatedString(matchingSpotIDs) + " );";
                     boolean deleteSpotResult = jdbcTemplate.update(sql) == matchingSpotIDs.size();
-
-                    //sql = "DELETE FROM tSpotImageCoordinates WHERE SpotID IN ( " + String.join(",", (CharSequence)matchingSpotIDs) + ");";
-                    //boolean deleteCoordinateResult = jdbcTemplate.update(sql) == matchingSpotIDs.size();
 
                     if(deleteSpotResult)// && deleteCoordinateResult)
                     {
@@ -304,8 +301,57 @@ public class JdbcDeviceRepository implements DeviceRepository
     }
 
     @Override
+    public boolean saveImage(String encodedByteArray)
+    {
+        Date currentDate = new Date();
+        String dateString = dateFormat.format(currentDate);
+
+        try
+        {
+            String deviceID = encodedByteArray.substring(1, encodedByteArray.indexOf(')'));
+            encodedByteArray = encodedByteArray.substring(encodedByteArray.indexOf(')') + 1);
+
+            String sql = "SELECT DeviceImageID from tDeviceImages WHERE DeviceID = " + deviceID + ";";
+            List<Integer> matchingImageIDs = jdbcTemplate.queryForList(sql, Integer.class);
+
+            //delete existing if they exist
+            if(matchingImageIDs.size() > 0)
+            {
+                sql = "DELETE FROM tDeviceImages WHERE DeviceImageID IN ( " + CreateCommaSeparatedString(matchingImageIDs) + " );";
+                jdbcTemplate.update(sql);
+            }
+
+            SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
+            jdbcInsert.withTableName("tDeviceImages").usingGeneratedKeyColumns("DeviceImageID");
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("DeviceID", deviceID);
+            parameters.put("ImageEncodedString", encodedByteArray);
+            parameters.put("CreateDate", dateString);
+
+            Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
+    @Override
     public Device getDevice(int deviceId)
     {
         return null;
+    }
+
+    private String CreateCommaSeparatedString(List<Integer> intList)
+    {
+        String commaSeparatedString = "";
+        for (Integer i : intList)
+        {
+            commaSeparatedString += i + ",";
+        }
+        commaSeparatedString = commaSeparatedString.substring(0, commaSeparatedString.length() -1);
+        return commaSeparatedString;
     }
 }

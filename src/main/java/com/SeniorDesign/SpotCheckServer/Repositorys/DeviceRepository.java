@@ -27,4 +27,6 @@ public interface DeviceRepository
     public boolean removeFromCompany(int deviceID);
 
     public boolean undeploy(int deviceID);
+
+    public boolean saveImage(String encodedByteArray);
  }
