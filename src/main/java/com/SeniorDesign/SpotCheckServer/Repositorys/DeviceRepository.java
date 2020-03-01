@@ -29,4 +29,6 @@ public interface DeviceRepository
     public boolean undeploy(int deviceID);
 
     public boolean saveImage(String encodedByteArray);
+
+    public String retrieveImageString(int deviceID);
  }

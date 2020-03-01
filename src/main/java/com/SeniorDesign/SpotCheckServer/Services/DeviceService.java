@@ -252,4 +252,27 @@ public class DeviceService
             return new ResponseEntity("Failure - Exception at Device/saveImage", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    public ResponseEntity retrieveImageString(String requestDTO)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try
+        {
+            int deviceID = mapper.readValue(requestDTO, int.class);
+            String encodedImageString = deviceRepository.retrieveImageString(deviceID);
+
+            if(encodedImageString != null)
+            {
+                return new ResponseEntity(encodedImageString, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at Device/retrieveImage", HttpStatus.CONFLICT);
+            }
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity("Failure - Exception at Device/retrieveImage", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class JdbcDeviceRepository implements DeviceRepository
@@ -326,7 +327,7 @@ public class JdbcDeviceRepository implements DeviceRepository
 
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("DeviceID", deviceID);
-            parameters.put("ImageEncodedString", encodedByteArray);
+            parameters.put("EncodedImageString", encodedByteArray);
             parameters.put("CreateDate", dateString);
 
             Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
@@ -335,6 +336,43 @@ public class JdbcDeviceRepository implements DeviceRepository
         catch (Exception ex)
         {
             return false;
+        }
+    }
+
+    @Override
+    public String retrieveImageString(int deviceID)
+    {
+        //we need to retrieve the image string, but it might not exist yet so I guess keep trying the same thing until it works...
+        try
+        {
+            String sql = "SELECT EncodedImageString FROM tDeviceImages WHERE DeviceID = ?";
+            List<String> encodedImageStrings = jdbcTemplate.queryForList(sql, String.class, deviceID);
+            int imageRetrievalAttemptCount = 1;
+
+            //if we did not get the image the first time... keep trying
+            while(encodedImageStrings.size() < 1)
+            {
+                //wait one second and try again
+                TimeUnit.SECONDS.sleep(1);
+                encodedImageStrings = jdbcTemplate.queryForList(sql, String.class, deviceID);
+                imageRetrievalAttemptCount ++;
+
+                if(imageRetrievalAttemptCount > 10)
+                {
+                    return null;
+                }
+            }
+
+            //get the string
+            String encodedImageString = encodedImageStrings.get(0);
+
+            //clear from the database
+
+            return encodedImageString;
+        }
+        catch (Exception ex)
+        {
+            return null;
         }
     }
 

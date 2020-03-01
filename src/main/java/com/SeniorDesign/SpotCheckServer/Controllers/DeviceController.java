@@ -96,10 +96,11 @@ public class DeviceController
         return saveResult;
     }
 
-    /*@RequestMapping(value = "getImage", method = RequestMethod.POST)
+    @RequestMapping(value = "retrieveImageString", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity getImage(@RequestBody String requestDto)
     {
-        ResponseEntity
-    }*/
+        ResponseEntity imageString = deviceService.retrieveImageString(requestDto);
+        return imageString;
+    }
 }
