@@ -36,7 +36,7 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     DeviceMapper deviceMapper;
 
 
-    private final String  GET_PARKING_LOTS = "SELECT lot.LotID, lot.Address, lot.ZipCode, lot.City, lot.State, lot.LotName, lot.CompanyID, lot.OpenSpots, lot.TotalSpots, lotCoord.Latitude, lotCoord.Longitude, lotCoord.Coordinates FROM tParkingLot lot LEFT JOIN tParkingLotCoordinates lotCoord ON lot.LotID = lotCoord.ParkingLotID";
+    private final String  GET_PARKING_LOTS_AND_COORDINATES = "SELECT lot.LotID, lot.Address, lot.ZipCode, lot.City, lot.State, lot.LotName, lot.CompanyID, lot.OpenSpots, lot.TotalSpots, lotCoord.Latitude, lotCoord.Longitude, lotCoord.Coordinates FROM tParkingLot lot INNER JOIN tParkingLotCoordinates lotCoord ON lot.LotID = lotCoord.ParkingLotID";
     private final String GET_OPEN_SPOTS_BY_LOT_ID = "select OpenSpots from tParkingLot where LotId = ?";
     private final String  GET_PARKING_LOT_BY_ID  = "";
     private final String UPDATE_OPEN_PARKING = "UPDATE tParkingLot " +
@@ -54,7 +54,7 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     @Override
     public ParkingLots getParkingLots() {
         try {
-            List<ParkingLot> lots = jdbctemplate.query(GET_PARKING_LOTS, parkingLotMapper);
+            List<ParkingLot> lots = jdbctemplate.query(GET_PARKING_LOTS_AND_COORDINATES, parkingLotMapper);
             ParkingLots parkingLots = new ParkingLots();
             parkingLots.setParkingLotList(lots);
             return parkingLots;
