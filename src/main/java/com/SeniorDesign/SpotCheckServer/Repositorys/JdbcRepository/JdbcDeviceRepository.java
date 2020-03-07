@@ -332,6 +332,12 @@ public class JdbcDeviceRepository implements DeviceRepository
             parameters.put("CreateDate", dateString);
 
             Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+
+            //ensure that take new device is reset
+            Device currentDevice = fill(Integer.parseInt(deviceID));
+            currentDevice.setTakeNewImage(false);
+            updateDevice(currentDevice);
+
             return true;
         }
         catch (Exception ex)
