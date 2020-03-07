@@ -309,8 +309,9 @@ public class JdbcDeviceRepository implements DeviceRepository
 
         try
         {
-            String deviceID = encodedByteArray.substring(1, encodedByteArray.indexOf(')'));
+            String deviceID = encodedByteArray.substring(2, encodedByteArray.indexOf(')'));
             encodedByteArray = encodedByteArray.substring(encodedByteArray.indexOf(')') + 1);
+            encodedByteArray = encodedByteArray.substring(0, encodedByteArray.length() - 1);
 
             String sql = "SELECT DeviceImageID from tDeviceImages WHERE DeviceID = " + deviceID + ";";
             List<Integer> matchingImageIDs = jdbcTemplate.queryForList(sql, Integer.class);

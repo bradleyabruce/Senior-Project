@@ -86,7 +86,7 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     @Override
     public List<ParkingLot> getParkingLotsIOS() {
         try {
-            List<ParkingLot> lots = jdbctemplate.query(GET_PARKING_LOTS, parkingLotMapper);
+            List<ParkingLot> lots = jdbctemplate.query(GET_PARKING_LOTS_AND_COORDINATES, parkingLotMapper);
             return lots;
         }
         catch (Exception ex)
@@ -121,7 +121,7 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
                 sql = "Update tParkingLot Set Address ='" + lot.getAddress() + "', City = '" + lot.getCity() + "', State = '" + lot.getState() + "', ZipCode = '" + lot.getZipCode() + "', LotName = '" + lot.getLotName() + "' WHERE LotID = " + lot.getLotID() + ";";
                 jdbctemplate.update(sql);
 
-                sql = GET_PARKING_LOTS + " WHERE LotID = ?";
+                sql = GET_PARKING_LOTS_AND_COORDINATES + " WHERE LotID = ?";
                 List<ParkingLot> updatedLots = (List<ParkingLot>) jdbctemplate.query(sql, parkingLotMapper, lot.getLotID());
                 if(updatedLots.size() == 1)
                 {
@@ -167,7 +167,7 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
         try
         {
             String sqlWhere = " WHERE CompanyID = ?";
-            List<ParkingLot> lots =  jdbctemplate.query(GET_PARKING_LOTS + sqlWhere, parkingLotMapper, companyID);
+            List<ParkingLot> lots =  jdbctemplate.query(GET_PARKING_LOTS_AND_COORDINATES + sqlWhere, parkingLotMapper, companyID);
             return lots;
         }
         catch (Exception ex)
@@ -181,7 +181,7 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     @Override
     public ParkingLot fill(int lotID)
     {
-        String sql = GET_PARKING_LOTS;
+        String sql = GET_PARKING_LOTS_AND_COORDINATES;
         String where = " WHERE LotID = ?";
         try
         {

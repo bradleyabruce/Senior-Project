@@ -1,1 +1,3 @@
 com/SeniorDesign/SpotCheckServer/ApplicationTests.class
+com/SeniorDesign/SpotCheckServer/ControllersTest/CompanyControllerTest.class
+com/SeniorDesign/SpotCheckServer/ControllersTest/DeviceControllerTest.class
