@@ -253,13 +253,13 @@ public class DeviceService
         }
     }
 
-    public ResponseEntity retrieveImageString(String requestDTO)
+    public ResponseEntity retrieveImageString(String requestDto)
     {
         ObjectMapper mapper = new ObjectMapper();
 
         try
         {
-            int deviceID = mapper.readValue(requestDTO, int.class);
+            int deviceID = mapper.readValue(requestDto, int.class);
             String encodedImageString = deviceRepository.retrieveImageString(deviceID);
 
             if(encodedImageString != null)

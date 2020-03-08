@@ -333,7 +333,7 @@ public class JdbcDeviceRepository implements DeviceRepository
 
             Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
 
-            //ensure that take new device is reset
+            //ensure that TakeNewImage is reset
             Device currentDevice = fill(Integer.parseInt(deviceID));
             currentDevice.setTakeNewImage(false);
             updateDevice(currentDevice);
@@ -374,8 +374,15 @@ public class JdbcDeviceRepository implements DeviceRepository
             String encodedImageString = encodedImageStrings.get(0);
 
             //clear from the database
-
-            return encodedImageString;
+            sql = "DELETE FROM tDeviceImages WHERE DeviceID = " + deviceID + ";";
+            int deletedRows = jdbcTemplate.update(sql);
+            if(deletedRows > 0 )
+            {
+                return encodedImageString;
+            }
+            else{
+                return null;
+            }
         }
         catch (Exception ex)
         {
