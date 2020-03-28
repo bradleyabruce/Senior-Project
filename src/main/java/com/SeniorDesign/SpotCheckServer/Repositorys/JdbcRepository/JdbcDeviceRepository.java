@@ -275,7 +275,7 @@ public class JdbcDeviceRepository implements DeviceRepository
 
                 if(matchingSpotIDs.size() > 0)
                 {
-                    sql = "DELETE FROM tSpots WHERE SpotID IN ( " + CreateCommaSeparatedString(matchingSpotIDs) + " );";
+                    sql = "DELETE FROM tSpot WHERE SpotID IN ( " + CreateCommaSeparatedString(matchingSpotIDs) + " );";
                     boolean deleteSpotResult = jdbcTemplate.update(sql) == matchingSpotIDs.size();
 
                     if(deleteSpotResult)// && deleteCoordinateResult)
