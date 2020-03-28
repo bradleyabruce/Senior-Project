@@ -3,6 +3,7 @@ package com.SeniorDesign.SpotCheckServer.Services;
 import com.SeniorDesign.SpotCheckServer.Controllers.DeviceController;
 import com.SeniorDesign.SpotCheckServer.Models.Device;
 import com.SeniorDesign.SpotCheckServer.Models.ParkingLot;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.DeviceRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.coyote.Response;
@@ -273,6 +274,52 @@ public class DeviceService
         catch(Exception ex)
         {
             return new ResponseEntity("Failure - Exception at Device/retrieveImage", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity clearImage(String requestDto, boolean setTakeNewImageToTrue)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try
+        {
+            int deviceID = mapper.readValue(requestDto, int.class);
+            boolean clearResult = deviceRepository.clearImage(deviceID, true);
+
+            if(clearResult)
+            {
+                return new ResponseEntity(clearResult, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at Device/clearImage", HttpStatus.CONFLICT);
+            }
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity("Failure - Exception at Device/clearImage", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity saveSpots(String requestDto)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try
+        {
+            ParkingSpot[] spots = mapper.readValue(requestDto, ParkingSpot[].class);
+            boolean saveResult = deviceRepository.saveSpots(spots);
+
+            if(saveResult)
+            {
+                return new ResponseEntity(saveResult, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity("Failure - Exception at Device/saveSpots", HttpStatus.CONFLICT);
+            }
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity("Failure - Exception at Device/saveSpots", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

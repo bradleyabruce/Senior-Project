@@ -103,4 +103,21 @@ public class DeviceController
         ResponseEntity imageString = deviceService.retrieveImageString(requestDto);
         return imageString;
     }
+
+    @RequestMapping(value = "clearImage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity clearImage(@RequestBody String requestDto)
+    {
+        ResponseEntity clearResult = deviceService.clearImage(requestDto, true);
+        return clearResult;
+    }
+
+    @RequestMapping(value = "saveSpots", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity saveSpots(@RequestBody String requestDto)
+    {
+        ResponseEntity saveResult = deviceService.saveSpots(requestDto);
+        return saveResult;
+    }
+
 }

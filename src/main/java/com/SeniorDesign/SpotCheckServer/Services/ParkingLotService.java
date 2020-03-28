@@ -169,8 +169,8 @@ public class ParkingLotService
         try
         {
             ObjectMapper mapper = new ObjectMapper();
-            ParkingLot lot = mapper.readValue(requestDto, ParkingLot.class);
-            Boolean deleteResult = parkingLotRepository.delete(lot);
+            int parkingLotID = mapper.readValue(requestDto, Integer.class);
+            Boolean deleteResult = parkingLotRepository.delete(parkingLotID);
 
             if(deleteResult != null)
             {

@@ -1,6 +1,7 @@
 package com.SeniorDesign.SpotCheckServer.Repositorys;
 
 import com.SeniorDesign.SpotCheckServer.Models.Device;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,4 +32,8 @@ public interface DeviceRepository
     public boolean saveImage(String encodedByteArray);
 
     public String retrieveImageString(int deviceID);
+
+    public boolean clearImage(int deviceID, boolean setTakeNewImageToTrue);
+
+    public boolean saveSpots(ParkingSpot[] spots);
  }

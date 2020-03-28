@@ -2,6 +2,7 @@ package com.SeniorDesign.SpotCheckServer.Repositorys.JdbcRepository;
 
 import com.SeniorDesign.SpotCheckServer.Enums.eDeviceStatusID;
 import com.SeniorDesign.SpotCheckServer.Models.Device;
+import com.SeniorDesign.SpotCheckServer.Models.ParkingSpot;
 import com.SeniorDesign.SpotCheckServer.Repositorys.DeviceRepository;
 import com.SeniorDesign.SpotCheckServer.Repositorys.Mappers.DeviceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class JdbcDeviceRepository implements DeviceRepository
 
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private final String GET_DEVICES_BY_ID = "";
-    final String GET_DEVICES = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.deviceStatusID, d.ParkingLotID FROM tDevice d";
+    final static String GET_DEVICES = "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.deviceStatusID, d.ParkingLotID FROM tDevice d";
 
     @Override
     public List<Device> getDevices()
@@ -374,9 +375,7 @@ public class JdbcDeviceRepository implements DeviceRepository
             String encodedImageString = encodedImageStrings.get(0);
 
             //clear from the database
-            sql = "DELETE FROM tDeviceImages WHERE DeviceID = " + deviceID + ";";
-            int deletedRows = jdbcTemplate.update(sql);
-            if(deletedRows > 0 )
+            if(clearImage(deviceID, true))
             {
                 return encodedImageString;
             }
@@ -387,6 +386,84 @@ public class JdbcDeviceRepository implements DeviceRepository
         catch (Exception ex)
         {
             return null;
+        }
+    }
+
+    @Override
+    public boolean clearImage(int deviceID, boolean setTakeNewImageToTrue) {
+
+        try {
+            //clear from the database
+            String sql = "DELETE FROM tDeviceImages WHERE DeviceID = " + deviceID + ";";
+            int deletedRows = jdbcTemplate.update(sql);
+
+            if(setTakeNewImageToTrue)
+            {
+                sql = "UPDATE tDevice Set TakeNewImage = 'false' WHERE DeviceID = " + deviceID + ";";
+                int updatedRows = jdbcTemplate.update(sql);
+            }
+
+            //return true if nothing blows up
+            return true;
+        }
+        catch(Exception ex)
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean saveSpots(ParkingSpot[] spots)
+    {
+        try
+        {
+            Date currentDate = new Date();
+            String dateString = dateFormat.format(currentDate);
+
+                //for every spot we need to insert the spot, the availability, and the coordinates
+                for(ParkingSpot spot : spots)
+                {
+                    //insert spot
+                    SimpleJdbcInsert jdbcInsertSpot = new SimpleJdbcInsert(jdbcTemplate);
+                    jdbcInsertSpot.withTableName("tSpot").usingGeneratedKeyColumns("SpotID");
+
+                    Map<String, Object> spotParameters = new HashMap<>();
+                    spotParameters.put("FloorNum", spot.getFloorNum());
+                    spotParameters.put("LotID", spot.getLotId());
+                    spotParameters.put("DeviceID", spot.getDeviceId());
+                    spotParameters.put("UpdateDate", dateString);
+
+                    Number spotKey = jdbcInsertSpot.executeAndReturnKey(new MapSqlParameterSource(spotParameters));
+                    int spotID = ((Number) spotKey).intValue();
+
+                    //insert availability
+                    SimpleJdbcInsert jdbcInsertAvailability = new SimpleJdbcInsert(jdbcTemplate);
+                    jdbcInsertAvailability.withTableName("tSpotAvailability").usingGeneratedKeyColumns("SpotAvailabilityID");
+
+                    Map<String, Object> availabiltyParameters = new HashMap<>();
+                    availabiltyParameters.put("SpotID", spotID);
+                    availabiltyParameters.put("IsOpen", true);
+
+                    Number availabilityKey = jdbcInsertAvailability.executeAndReturnKey(new MapSqlParameterSource(availabiltyParameters));
+
+                    //insert coordinates
+                    SimpleJdbcInsert jdbcInsertCoordinates = new SimpleJdbcInsert(jdbcTemplate);
+                    jdbcInsertCoordinates.withTableName("tSpotImageCoordinates").usingGeneratedKeyColumns("SpotImageCoordinateID");
+
+                    Map<String, Object> coordinateParameters = new HashMap<>();
+                    coordinateParameters.put("SpotID", spotID);
+                    coordinateParameters.put("TopLeftXCoordinate", spot.getTopLeftXCoordinate());
+                    coordinateParameters.put("TopLeftYCoordinate", spot.getTopLeftYCoordinate());
+                    coordinateParameters.put("BottomRightXCoordinate", spot.getBottomRightXCoordinate());
+                    coordinateParameters.put("BottomRightYCoordinate", spot.getBottomRightYCoordinate());
+
+                    Number coordinateKey = jdbcInsertCoordinates.executeAndReturnKey(new MapSqlParameterSource(coordinateParameters));
+                }
+
+                return true;
+        }
+        catch(Exception ex){
+            return false;
         }
     }
 

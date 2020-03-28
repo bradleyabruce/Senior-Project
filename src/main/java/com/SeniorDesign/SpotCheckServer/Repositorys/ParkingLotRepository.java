@@ -32,7 +32,7 @@ public interface ParkingLotRepository
 
      List<Device> getCamerasDeployedAtParkingLot(ParkingLot lot);
 
-     Boolean delete(ParkingLot lot);
+     Boolean delete(int parkingLotID);
 
      ParkingLot create(ParkingLot lot);
 }

@@ -219,24 +219,23 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     }
 
     @Override
-    public Boolean delete(ParkingLot lot)
+    public Boolean delete(int parkingLotID)
     {
         //determine if we can delete
-        String select =  "SELECT d.deviceid, d.devicename, d.localipaddress, d.externalipaddress, d.macaddress, d.lastupdatedate, d.companyid, d.takenewimage, d.IsDeployed, d.ParkingLotID";
-        String from = " FROM tDevice d";
+        String select = JdbcDeviceRepository.GET_DEVICES;
         String where = " WHERE d.ParkingLotID = ?";
-        String sql = select + from + where;
+        String sql = select + where;
 
         try
         {
-            List<Device> camerasDeployedToLot = jdbctemplate.query(sql, deviceMapper, lot.getLotID());
+            List<Device> camerasDeployedToLot = jdbctemplate.query(sql, deviceMapper, parkingLotID);
             if(camerasDeployedToLot.size() < 1)
             {
                 String deleteFromtParkingLot = "DELETE FROM tParkingLot WHERE LotID = ?";
-                int parkingLotRows = jdbctemplate.update(deleteFromtParkingLot, lot.getLotID());
+                int parkingLotRows = jdbctemplate.update(deleteFromtParkingLot, parkingLotID);
 
                 String deleteFromtParkingLotCoordinates = "DELETE FROM tParkingLotCoordinates WHERE ParkingLotID = ?";
-                int parkingLotCoordinateRows = jdbctemplate.update(deleteFromtParkingLotCoordinates, lot.getLotID());
+                int parkingLotCoordinateRows = jdbctemplate.update(deleteFromtParkingLotCoordinates, parkingLotID);
 
                 return true;
             }
@@ -255,9 +254,8 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
     {
         try
         {
-            SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbctemplate);
-            jdbcInsert.withTableName("tParkingLot").usingGeneratedKeyColumns("LotID");
-
+            SimpleJdbcInsert jdbcLotInsert = new SimpleJdbcInsert(jdbctemplate);
+            jdbcLotInsert.withTableName("tParkingLot").usingGeneratedKeyColumns("LotID");
             Map<String, Object> parameters = new HashMap<>();
             parameters.put("LotName", lot.getLotName());
             parameters.put("Address", lot.getAddress());
@@ -268,10 +266,20 @@ public class JdbcParkingLotRepository implements ParkingLotRepository
             parameters.put("OpenSpots", 0);
             parameters.put("TotalSpots", 0);
 
-            Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+            Number key = jdbcLotInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
             int newParkingLotID = ((Number) key).intValue();
             lot.setLotID(newParkingLotID);
 
+            //TODO insert actual coordinates
+            SimpleJdbcInsert jdbcCoordInsert = new SimpleJdbcInsert((jdbctemplate));
+            jdbcCoordInsert.withTableName("tParkingLotCoordinates").usingGeneratedKeyColumns("ParkingLotCoordinateID");
+            parameters = new HashMap<>();
+            parameters.put("ParkingLotID", lot.getLotID());
+            parameters.put("Latitude", 0);
+            parameters.put("Longitude", 0);
+
+            key = jdbcCoordInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+            int parkingLotCoordinateID = ((Number) key).intValue();
             return lot;
         }
 
